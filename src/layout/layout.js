@@ -1,11 +1,15 @@
 import React from "react";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 function Layout({ children }) {
   return (
     <div>
-      <main className="max-w-800px">
+      <Header />
+      <main>
         {children}
       </main>
+      <Footer />
     </div>
   );
 }

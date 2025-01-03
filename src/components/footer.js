@@ -10,8 +10,7 @@ import {
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-400 py-10">
-      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {/* About Us */}
+      <div className="max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
         <div>
           <div className="text-left">
             <h2 className="text-white text-lg font-bold uppercase">
@@ -19,7 +18,6 @@ const Footer = () => {
             </h2>
             <div className="relative mt-1">
               <div className="bg-orange-500 h-0.5 w-full mt-1 opacity-50"></div>{" "}
-              {/* Đường mờ */}
             </div>
           </div>
           <p>
@@ -33,7 +31,6 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Policies */}
         <div>
           <div className="text-left">
             <h2 className="text-white text-lg font-bold uppercase">
@@ -41,7 +38,6 @@ const Footer = () => {
             </h2>
             <div className="relative mt-1">
               <div className="bg-orange-500 h-0.5 w-full mt-1 opacity-50"></div>{" "}
-              {/* Đường mờ */}
             </div>
           </div>
           <ul className="space-y-2">
@@ -68,7 +64,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Contact */}
         <div>
           <div className="text-left">
             <h2 className="text-white text-lg font-bold uppercase">Liên Hệ</h2>
@@ -100,7 +95,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Guide */}
         <div>
           <div className="text-left">
             <h2 className="text-white text-lg font-bold uppercase">
@@ -108,7 +102,6 @@ const Footer = () => {
             </h2>
             <div className="relative mt-1">
               <div className="bg-orange-500 h-0.5 w-full mt-1 opacity-50"></div>{" "}
-              {/* Đường mờ */}
             </div>
           </div>
           <ul className="space-y-2">
@@ -141,7 +134,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Footer Bottom */}
       <div className="text-center mt-10 border-t border-gray-700 pt-6">
         <p className="text-sm">
           © Bản quyền thuộc về <span className="text-green-500">K-bro</span> |

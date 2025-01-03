@@ -1,15 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PropertyDetail from "./pages/PropertyDetail";
-import Layout from "./components/Layout"; // Import Layout
+import HomePage from "./pages/homePage";
+import Layout from "./layout/layout";
 
 const App = () => {
   return (
     <Router>
       <Layout>
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/detail" element={<PropertyDetail />} />
-          {/* Thêm các route khác nếu cần */}
         </Routes>
       </Layout>
     </Router>
