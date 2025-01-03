@@ -43,6 +43,7 @@ function Header() {
         </div>
 
         <nav
+          style={{zIndex:1000}}
           className={`lg:flex flex-col lg:flex-row lg:space-x-6 text-sm font-medium text-gray-700 absolute lg:relative lg:top-0 top-16 left-0 w-full bg-white lg:bg-transparent lg:w-auto transform lg:transform-none transition-transform duration-300 ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
@@ -62,7 +63,7 @@ function Header() {
               Tất cả tin rao <span className="ml-1">&#x25BC;</span>
             </button>
             {isSubMenuOpen && (
-              <div className="absolute left-32 lg:left-0 bg-white shadow-lg rounded-md mt-2 z-10 w-40 text-center z-1000">
+              <div className="absolute left-32 lg:left-0 bg-white shadow-lg rounded-md mt-2 z-10 w-40 text-center">
                 <a
                   href="#"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100 "
@@ -110,6 +111,7 @@ function Header() {
             Liên hệ
           </a>
         </nav>
+        
       </div>
     </div>
   );
