@@ -1,0 +1,24 @@
+{
+  "details": {
+    "breadcrumb": {
+      "home": "홈",
+      "city": "다낭",
+      "property": "고급 아파트 및 빌라 임대"
+    },
+    "details": {
+      "title": "고급 아파트 및 빌라 임대",
+      "district": "구/군:",
+      "type": "프로젝트 유형:",
+      "status": "상태:",
+      "price": "6,000,000,000 VND",
+      "call": "지금 문의"
+    },
+    "projectDetails": {
+      "featuresTitle": "프로젝트 특징",
+      "contactTitle": "연락처 정보",
+      "descriptionTitle": "프로젝트 세부 정보",
+      "viewMore": "더보기",
+      "collapse": "접기"
+    }
+  }
+}

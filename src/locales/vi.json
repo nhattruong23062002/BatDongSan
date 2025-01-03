@@ -1,0 +1,24 @@
+{
+  "details": {
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "city": "Tp. Đà Nẵng",
+      "property": "Cho thuê căn hộ, biệt thự cao cấp"
+    },
+    "details": {
+      "title": "Cho thuê căn hộ, biệt thự cao cấp",
+      "district": "Thuộc Quận/Huyện:",
+      "type": "Kiểu dự án:",
+      "status": "Trạng thái:",
+      "price": "6.000.000.000đ",
+      "call": "Liên hệ ngay"
+    },
+    "projectDetails": {
+      "featuresTitle": "Đặc điểm dự án",
+      "contactTitle": "Thông tin liên hệ",
+      "descriptionTitle": "Chi tiết dự án",
+      "viewMore": "Xem thêm",
+      "collapse": "Thu gọn"
+    }
+  }
+}

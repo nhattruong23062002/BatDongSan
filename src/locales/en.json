@@ -1,0 +1,24 @@
+{
+  "details": {
+    "breadcrumb": {
+      "home": "Home",
+      "city": "Da Nang",
+      "property": "Rent high-end apartments and villas"
+    },
+    "details": {
+      "title": "Rent high-end apartments and villas",
+      "district": "District/County:",
+      "type": "Project type:",
+      "status": "Status:",
+      "price": "6,000,000,000 VND",
+      "call": "Contact now"
+    },
+    "projectDetails": {
+      "featuresTitle": "Project Features",
+      "contactTitle": "Contact Information",
+      "descriptionTitle": "Project Details",
+      "viewMore": "View More",
+      "collapse": "Collapse"
+    }
+  }
+}
