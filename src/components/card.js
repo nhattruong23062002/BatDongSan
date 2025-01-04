@@ -1,9 +1,16 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FaBed, FaBath, FaRulerCombined } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Card({ image, tags, title, location, price, details }) {
+  const { t } = useTranslation("card");
+  const navigation = useNavigate();
+  const handleShowDetail = () => {
+     navigation('/detail')
+  }
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden group">
+    <div className="bg-white rounded-lg shadow overflow-hidden group" onClick={handleShowDetail}>
       <div className="relative">
         <img
           src={image}
@@ -31,12 +38,12 @@ function Card({ image, tags, title, location, price, details }) {
       <div className="border-t border-gray-200 px-4 py-2 grid grid-cols-3 text-sm text-gray-600">
         <div className="flex items-center justify-center">
           <FaBed className="text-gray-300 mb-1 text-xl mr-2" />
-          <span>{details.bedrooms} Ngủ</span>
+          <span>{details.bedrooms} {t("sleep")}</span>
         </div>
 
         <div className="flex items-center justify-center border-l border-gray-200">
           <FaBath className="text-gray-300 mb-1 text-xl mr-2" />
-          <span>{details.bathrooms} Tắm</span>
+          <span>{details.bathrooms} {t("shower")}</span>
         </div>
 
         <div className="flex items-center justify-center border-l border-gray-200">

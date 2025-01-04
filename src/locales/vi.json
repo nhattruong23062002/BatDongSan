@@ -5,20 +5,163 @@
       "city": "Tp. Đà Nẵng",
       "property": "Cho thuê căn hộ, biệt thự cao cấp"
     },
-    "details": {
-      "title": "Cho thuê căn hộ, biệt thự cao cấp",
-      "district": "Thuộc Quận/Huyện:",
-      "type": "Kiểu dự án:",
-      "status": "Trạng thái:",
-      "price": "6.000.000.000đ",
-      "call": "Liên hệ ngay"
-    },
+
+    "title": "Cho thuê căn hộ, biệt thự cao cấp",
+    "district": "Thuộc Quận/Huyện:",
+    "type": "Kiểu dự án:",
+    "status": "Trạng thái:",
+    "price": "6.000.000.000đ",
+    "call": "Liên hệ ngay",
+    "house": "căn hộ",
+    "sale": "Đang bán (cho thuê)",
+    "contact": "Liên hệ ngay",
+
     "projectDetails": {
       "featuresTitle": "Đặc điểm dự án",
+      "type": "Loại tin rao",
+      "rent": "Cho thuê",
+      "address": "Địa chỉ",
+      "district": "Phường 15, Bình Thạnh",
+      "area": "Diện tích",
+      "areaValue": "175m²",
+      "bedrooms": "Phòng ngủ",
+      "bedroomCount": "3",
+      "bathrooms": "Phòng WC",
+      "bathroomCount": "2",
+      "orientation": "Hướng nhà",
+      "orientationValue": "Đông Nam",
       "contactTitle": "Thông tin liên hệ",
       "descriptionTitle": "Chi tiết dự án",
+      "intro": "Căn hộ cao cấp Eurowindow River Park chính thức được tung ra thị trường. Chính sách siêu khủng gửi tặng khách hàng:",
+      "benefits": [
+        "Tặng vé cứng đi nghỉ dưỡng 3 ngày 2 đêm tại địa điểm du lịch nổi tiếng với giá trị 10 triệu.",
+        "Ngân hàng Techcombank hỗ trợ 70% giá trị căn hộ trong 25 năm, miễn lãi 0% trong 2 năm đầu.",
+        "Chiết khấu 15% khi thanh toán trước 95% giá trị căn hộ.",
+        "Tên dự án: Eurowindow River Park. Chủ đầu tư: Tập đoàn Eurowindow Holdings."
+      ],
+      "expandedDetails": {
+        "location": "Với vị trí đắc địa, dự án Eurowindow River Park nằm sát sông Hồng, mang đến môi trường sống xanh, sạch và đầy đủ tiện nghi.",
+        "address": "Đường Trần Hữu Dực, quận Nam Từ Liêm, Hà Nội.",
+        "amenities": "Tiện ích: Trung tâm thương mại, hồ bơi vô cực, phòng gym, khu vui chơi trẻ em, khu BBQ..."
+      },
       "viewMore": "Xem thêm",
       "collapse": "Thu gọn"
+    },
+    "contacts": {
+      "contactName": "Tên liên lạc",
+      "contactPerson": "Lee Woo Min",
+      "phone": "Số điện thoại",
+      "phoneNumber": "0123 456 789",
+      "email": "Email",
+      "emailAddress": "Woomin@gmail.com"
+    },
+    "position": "Vị trí dự án"
+  },
+  "header": {
+    "home": "Trang chủ",
+    "all_posts": "Tất cả tin rao",
+    "apartment": "Căn hộ",
+    "house": "Nhà mặt đất",
+    "villa": "Biệt thự",
+    "office": "Văn phòng",
+    "news": "Tin tức",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ"
+  },
+  "card": {
+    "sleep": "Ngủ",
+    "shower": "Tắm"
+  },
+  "newsCard": {
+    "comment": "Bình luận",
+    "read": "Đọc tiếp"
+  },
+  "homePage": {
+    "banner": {
+      "search_title": "Tìm kiếm nhà đất mơ ước",
+      "search_placeholder": "Tìm dự án, biệt thự...",
+      "search_button": "TÌM KIẾM NHANH",
+      "quick_search": "Tìm nhanh theo kiểu dáng",
+      "villa": "Biệt thự",
+      "garden_house": "Nhà vườn",
+      "town_house": "Nhà phố",
+      "apartment": "Chung cư",
+      "flat": "Căn hộ",
+      "rent": "Thuê",
+      "sell": "Bán"
+    },
+    "projects": {
+      "latest_projects": "DỰ ÁN",
+      "latest_projects_subtitle": "MỚI NHẤT",
+      "latest_projects_description": "Dự án mới nhất này có đang ở gần bạn?",
+      "villa": "BIỆT THỰ",
+      "apartment": "CĂN HỘ",
+      "condominium": "CHUNG CƯ",
+      "garden_house": "NHÀ VƯỜN",
+      "title1": "Bán biệt thự hiện đại mới xây",
+      "title2": "Biệt thự Sunshine Group",
+      "title3": "Bán căn hộ cao cấp Đà Nẵng",
+      "title4": "Cho thuê chung cư HAGL",
+      "title5": "Cho thuê biệt thự hiện đại",
+      "title6": "Cho thuê căn hộ, biệt thự cao cấp",
+      "type_villa": "Biệt thự",
+      "type_apartment": "Căn hộ",
+      "type_condo": "Chung cư",
+      "location1": "Xuân Thủy Cầu Giấy Hà Nội",
+      "location2": "Tây Hồ, Hà Nội",
+      "location3": "Sơn trà, Đà Nẵng",
+      "rent": "Cho thuê",
+      "sale": "Bán"
+    },
+    "featured_projects": {
+      "title": "MẪU DỰ ÁN",
+      "subtitle": "TIÊU BIỂU",
+      "description": "Sự khác biệt mang tên phong cách",
+      "units": "{{count}} căn",
+      "villa": "Biệt thự",
+      "garden_house": "Nhà vườn",
+      "town_house": "Nhà phố",
+      "apartment": "Chung cư",
+      "flat": "Căn hộ"
+    },
+    "real_estate_news": {
+      "title": "TIN",
+      "subtitle": "BẤT ĐỘNG SẢN MỚI",
+      "description": "Cập nhật nhanh chóng thông tin thị trường bất động sản"
+    },
+    "news1": {
+      "title": "Loạn tên gọi các dự án chung cư cao cấp, siêu sang",
+      "description": "Theo Hiệp hội Bất động sản Tp.HCM (HoREA), trên thị trường bất động sản hiện đang xuất hiện tình trạng loạn danh xưng..."
+    },
+    "news2": {
+      "title": "Chia nhỏ căn hộ, cho thuê ngắn hạn lợi ít hại nhiều",
+      "description": "Trước thực trạng khó cho thuê căn hộ, nhà đầu tư buộc phải áp dụng nhiều giải pháp trong đó có chia nhỏ căn hộ..."
+    },
+    "news3": {
+      "title": "Hàng loạt rào cản kìm hãm nguồn cung căn hộ giá rẻ",
+      "description": "Đúng như nhận định của ông Ngô Quang Phúc - Tổng giám đốc Phú Đông Group, thời gian này rất khó để phát triển thêm dự..."
     }
+  },
+  "footer": {
+    "about_us": "Về chúng tôi",
+    "about_description_1": "K-Bro Land là một sản phẩm của K-Bro, với nỗ lực phát triển bền vững về thị trường bất động sản, K-Bro Land đều có thể giúp bạn.",
+    "about_description_2": "Tìm tin bán nhà đất hoặc cho thuê nhà đất mới nhất bằng cách sử dụng công cụ tìm kiếm hoặc các đường link ngay trên trang chủ.",
+    "policies": "Chính Sách",
+    "contact": "Liên Hệ",
+    "contact_support": "Bạn cần hỗ trợ?",
+    "hotline": "1900 6750",
+    "address": "Sơn Trà, Đà Nẵng",
+    "email": "K-bro@gmail.com",
+    "social_media": "Mạng xã hội",
+    "guidelines": "Hướng Dẫn",
+    "links": {
+      "home": "Trang chủ",
+      "listings": "Tất cả tin rao",
+      "news": "Tin tức",
+      "about": "Giới thiệu",
+      "contact": "Liên hệ"
+    },
+    "copyright": "© Bản quyền thuộc về",
+    "provided_by": "Cung cấp bởi"
   }
 }

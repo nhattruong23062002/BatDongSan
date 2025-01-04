@@ -5,20 +5,163 @@
       "city": "Da Nang",
       "property": "Rent high-end apartments and villas"
     },
-    "details": {
-      "title": "Rent high-end apartments and villas",
-      "district": "District/County:",
-      "type": "Project type:",
-      "status": "Status:",
-      "price": "6,000,000,000 VND",
-      "call": "Contact now"
-    },
+
+    "title": "Rent high-end apartments and villas",
+    "district": "District/County:",
+    "type": "Project type:",
+    "status": "Status:",
+    "price": "6,000,000,000 VND",
+    "call": "Contact now",
+    "house": "apartment",
+    "sale": "For sale (for rent)",
+    "contact": "Contact now",
+
     "projectDetails": {
       "featuresTitle": "Project Features",
+      "type": "Post type",
+      "rent": "For rent",
+      "address": "Address",
+      "district": "Ward 15, Binh Thanh",
+      "area": "Area",
+      "areaValue": "175m²",
+      "bedrooms": "Bedrooms",
+      "bedroomCount": "3",
+      "bathrooms": "Bathrooms",
+      "bathroomCount": "2",
+      "orientation": "Orientation",
+      "orientationValue": "Southeast",
       "contactTitle": "Contact Information",
       "descriptionTitle": "Project Details",
+      "intro": "The high-class Eurowindow River Park apartment has officially been launched. Exceptional policies for customers:",
+      "benefits": [
+        "Free tickets for a 3-day 2-night vacation at a famous tourist destination worth 10 million VND.",
+        "Techcombank supports 70% of the apartment value over 25 years, with 0% interest for the first 2 years.",
+        "15% discount when paying 95% of the apartment value in advance.",
+        "Project name: Eurowindow River Park. Developer: Eurowindow Holdings Group."
+      ],
+      "expandedDetails": {
+        "location": "With a prime location, Eurowindow River Park is adjacent to the Red River, providing a green, clean, and fully equipped living environment.",
+        "address": "Tran Huu Duyet Street, Nam Tu Liem District, Hanoi.",
+        "amenities": "Amenities: Shopping center, infinity pool, gym, children's play area, BBQ area..."
+      },
       "viewMore": "View More",
       "collapse": "Collapse"
+    },
+    "contacts": {
+      "contactName": "Contact Name",
+      "contactPerson": "Lee Woo Min",
+      "phone": "Phone Number",
+      "phoneNumber": "0123 456 789",
+      "email": "Email",
+      "emailAddress": "Woomin@gmail.com"
+    },
+    "position": "Project Location"
+  },
+  "header": {
+    "home": "Home",
+    "all_posts": "All Posts",
+    "apartment": "Apartment",
+    "house": "House",
+    "villa": "Villa",
+    "office": "Office",
+    "news": "News",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "card": {
+    "sleep": "Sleep",
+    "shower": "Shower"
+  },
+  "newsCard": {
+    "comment": "Comment",
+    "read": "Read more"
+  },
+  "homePage": {
+    "banner": {
+      "search_title": "Find your dream real estate",
+      "search_placeholder": "Search for projects, villas...",
+      "search_button": "QUICK SEARCH",
+      "quick_search": "Quick search by type",
+      "villa": "Villa",
+      "garden_house": "Garden House",
+      "town_house": "Townhouse",
+      "apartment": "Apartment",
+      "flat": "Flat",
+      "rent": "Rent",
+      "sell": "Sell"
+    },
+    "projects": {
+      "latest_projects": "LATEST",
+      "latest_projects_subtitle": "PROJECTS",
+      "latest_projects_description": "Are these latest projects near you?",
+      "villa": "VILLA",
+      "apartment": "APARTMENT",
+      "condominium": "CONDOMINIUM",
+      "garden_house": "GARDEN HOUSE",
+      "title1": "Modern villa for sale",
+      "title2": "Sunshine Group Villa",
+      "title3": "Luxury apartment for sale in Da Nang",
+      "title4": "HAGL condo for rent",
+      "title5": "Modern villa for rent",
+      "title6": "Luxury apartment and villa for rent",
+      "type_villa": "Villa",
+      "type_apartment": "Apartment",
+      "type_condo": "Condominium",
+      "location1": "Xuan Thuy, Cau Giay, Hanoi",
+      "location2": "Tay Ho, Hanoi",
+      "location3": "Son Tra, Da Nang",
+      "rent": "Rent",
+      "sale": "Sale"
+    },
+    "featured_projects": {
+      "title": "FEATURED",
+      "subtitle": "PROJECTS",
+      "description": "The difference called style",
+      "units": "{{count}} units",
+      "villa": "Villa",
+      "garden_house": "Garden House",
+      "town_house": "Townhouse",
+      "apartment": "Apartment",
+      "flat": "Flat"
+    },
+    "real_estate_news": {
+      "title": "REAL ESTATE",
+      "subtitle": "LATEST NEWS",
+      "description": "Quickly update real estate market information"
+    },
+    "news1": {
+      "title": "Confusion over names of luxury apartment projects",
+      "description": "According to HoREA, the real estate market is currently witnessing a confusion of designations..."
+    },
+    "news2": {
+      "title": "Dividing apartments for short-term rentals brings little benefit",
+      "description": "Facing difficulties in renting out apartments, investors have to apply various solutions including dividing apartments..."
+    },
+    "news3": {
+      "title": "Numerous barriers hamper the supply of affordable apartments",
+      "description": "As noted by Mr. Ngo Quang Phuc - CEO of Phu Dong Group, it is very difficult to develop more affordable apartments at this time..."
     }
+  },
+  "footer": {
+    "about_us": "About Us",
+    "about_description_1": "K-Bro Land is a product of K-Bro, striving for sustainable development in the real estate market.",
+    "about_description_2": "Find the latest listings for sale or rent using the search tool or the links on the homepage.",
+    "policies": "Policies",
+    "contact": "Contact Us",
+    "contact_support": "Need support?",
+    "hotline": "1900 6750",
+    "address": "Son Tra, Da Nang",
+    "email": "K-bro@gmail.com",
+    "social_media": "Social Media",
+    "guidelines": "Guidelines",
+    "links": {
+      "home": "Home",
+      "listings": "All Listings",
+      "news": "News",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "copyright": "© Copyright belongs to",
+    "provided_by": "Provided by"
   }
 }
