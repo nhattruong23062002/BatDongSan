@@ -35,7 +35,9 @@ const PropertyDetail = () => {
       <div className="max-w-7xl mx-auto">
         {/* Breadcrumb */}
         <div className="text-sm text-gray-500 mb-4">
-          <span>Trang chủ / </span>
+          <a href="/#" className="hover:text-blue-800 transition-colors">
+            Trang chủ /{" "}
+          </a>
           <span>Tp. Đà Nẵng </span>
           <span className="text-green-500">
             Cho thuê căn hộ, biệt thự cao cấp

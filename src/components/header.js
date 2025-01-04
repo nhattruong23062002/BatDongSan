@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false); 
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -16,11 +16,7 @@ function Header() {
     <div className="bg-white bg-opacity-90 shadow-md">
       <div className="container mx-auto max-w-[1280px] flex items-center justify-between h-16 px-6">
         <div className="flex items-center space-x-2">
-          <img
-            src="./logo.png" 
-            alt="Logo"
-            className="h-20 w-auto"
-          />
+          <img src="./logo.png" alt="Logo" className="h-20 w-auto" />
         </div>
 
         <div className="block lg:hidden">
@@ -43,7 +39,7 @@ function Header() {
         </div>
 
         <nav
-          style={{zIndex:1000}}
+          style={{ zIndex: 1000 }}
           className={`lg:flex flex-col lg:flex-row lg:space-x-6 text-sm font-medium text-gray-700 absolute lg:relative lg:top-0 top-16 left-0 w-full bg-white lg:bg-transparent lg:w-auto transform lg:transform-none transition-transform duration-300 ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
@@ -111,7 +107,6 @@ function Header() {
             Liên hệ
           </a>
         </nav>
-        
       </div>
     </div>
   );
