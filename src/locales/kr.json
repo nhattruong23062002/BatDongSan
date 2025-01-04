@@ -20,5 +20,112 @@
       "viewMore": "더보기",
       "collapse": "접기"
     }
+  },
+  "header": {
+    "home": "홈",
+    "all_posts": "모든 게시물",
+    "apartment": "아파트",
+    "house": "주택",
+    "villa": "빌라",
+    "office": "사무실",
+    "news": "뉴스",
+    "about": "소개",
+    "contact": "연락처"
+  },
+  "card": {
+    "sleep": "잠",
+    "shower": "샤워"
+  },
+  "newsCard": {
+    "comment": "댓글",
+    "read": "더 읽기"
+  },
+  "homePage": {
+    "banner": {
+      "search_title": "꿈의 부동산 찾기",
+      "search_placeholder": "프로젝트, 빌라 검색...",
+      "search_button": "빠른 검색",
+      "quick_search": "유형별 빠른 검색",
+      "villa": "빌라",
+      "garden_house": "가든 하우스",
+      "town_house": "타운하우스",
+      "apartment": "아파트",
+      "flat": "플랫",
+      "rent": "임대",
+      "sell": "판매"
+    },
+    "projects": {
+      "latest_projects": "최신",
+      "latest_projects_subtitle": "프로젝트",
+      "latest_projects_description": "이 최신 프로젝트가 근처에 있습니까?",
+      "villa": "빌라",
+      "apartment": "아파트",
+      "condominium": "콘도미니엄",
+      "garden_house": "가든 하우스",
+      "title1": "현대 빌라 판매",
+      "title2": "선샤인 그룹 빌라",
+      "title3": "다낭 고급 아파트 판매",
+      "title4": "HAGL 콘도 임대",
+      "title5": "현대 빌라 임대",
+      "title6": "고급 아파트 및 빌라 임대",
+      "type_villa": "빌라",
+      "type_apartment": "아파트",
+      "type_condo": "콘도미니엄",
+      "location1": "쑤언 투이, 꺼우 자이, 하노이",
+      "location2": "떼호, 하노이",
+      "location3": "선짜, 다낭",
+      "rent": "임대",
+      "sale": "판매"
+    },
+    "featured_projects": {
+      "title": "대표적인",
+      "subtitle": "프로젝트",
+      "description": "스타일이라는 차이",
+      "units": "{{count}} 유닛",
+      "villa": "빌라",
+      "garden_house": "가든 하우스",
+      "town_house": "타운하우스",
+      "apartment": "아파트",
+      "flat": "플랫"
+    },
+    "real_estate_news": {
+      "title": "부동산",
+      "subtitle": "최신 뉴스",
+      "description": "부동산 시장 정보를 신속하게 업데이트하세요"
+    },
+    "news1": {
+      "title": "고급 아파트 프로젝트의 이름 혼란",
+      "description": "HoREA에 따르면 부동산 시장은 현재 명칭 혼란을 겪고 있습니다..."
+    },
+    "news2": {
+      "title": "단기 임대를 위한 아파트 분할, 이익보다 손실",
+      "description": "아파트 임대가 어려운 상황에서 투자자들은 아파트 분할을 포함한 다양한 해결책을 적용해야 합니다..."
+    },
+    "news3": {
+      "title": "저렴한 아파트 공급을 방해하는 여러 장벽",
+      "description": "Phu Dong Group의 Ngo Quang Phuc CEO에 따르면 현재 저렴한 아파트를 추가 개발하는 것은 매우 어렵습니다..."
+    }
+  },
+  "footer": {
+    "about_us": "회사 소개",
+    "about_description_1": "K-Bro Land는 부동산 시장에서 지속 가능한 발전을 목표로 하는 K-Bro의 제품입니다.",
+    "about_description_2": "홈페이지에서 검색 도구나 링크를 사용하여 판매 또는 임대 최신 목록을 찾으세요.",
+    "policies": "정책",
+    "contact": "문의하기",
+    "contact_support": "지원이 필요하십니까?",
+    "hotline": "1900 6750",
+    "address": "선짜, 다낭",
+    "email": "K-bro@gmail.com",
+    "social_media": "소셜 미디어",
+    "guidelines": "가이드라인",
+    "links": {
+      "home": "홈",
+      "listings": "모든 목록",
+      "news": "뉴스",
+      "about": "회사 소개",
+      "contact": "문의하기"
+    },
+    "copyright": "© 저작권 소유",
+    "provided_by": "제공"
   }
 }
