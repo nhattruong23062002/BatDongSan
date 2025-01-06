@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^8.17.1",
-    "ajv-keywords": "^3.5.2",
+    "ajv-keywords": "^5.1.0",
     "cra-template": "1.2.0",
     "i18next": "^24.2.0",
     "i18next-browser-languagedetector": "^8.0.2",
