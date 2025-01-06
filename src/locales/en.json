@@ -5,21 +5,57 @@
       "city": "Da Nang",
       "property": "Rent high-end apartments and villas"
     },
-    "details": {
-      "title": "Rent high-end apartments and villas",
-      "district": "District/County:",
-      "type": "Project type:",
-      "status": "Status:",
-      "price": "6,000,000,000 VND",
-      "call": "Contact now"
-    },
+
+    "title": "Rent high-end apartments and villas",
+    "district": "District/County:",
+    "type": "Project type:",
+    "status": "Status:",
+    "price": "6,000,000,000 VND",
+    "call": "Contact now",
+    "house": "apartment",
+    "sale": "For sale (for rent)",
+    "contact": "Contact now",
+
     "projectDetails": {
       "featuresTitle": "Project Features",
+      "type": "Post type",
+      "rent": "For rent",
+      "address": "Address",
+      "district": "Ward 15, Binh Thanh",
+      "area": "Area",
+      "areaValue": "175m²",
+      "bedrooms": "Bedrooms",
+      "bedroomCount": "3",
+      "bathrooms": "Bathrooms",
+      "bathroomCount": "2",
+      "orientation": "Orientation",
+      "orientationValue": "Southeast",
       "contactTitle": "Contact Information",
       "descriptionTitle": "Project Details",
+      "intro": "The high-class Eurowindow River Park apartment has officially been launched. Exceptional policies for customers:",
+      "benefits": [
+        "Free tickets for a 3-day 2-night vacation at a famous tourist destination worth 10 million VND.",
+        "Techcombank supports 70% of the apartment value over 25 years, with 0% interest for the first 2 years.",
+        "15% discount when paying 95% of the apartment value in advance.",
+        "Project name: Eurowindow River Park. Developer: Eurowindow Holdings Group."
+      ],
+      "expandedDetails": {
+        "location": "With a prime location, Eurowindow River Park is adjacent to the Red River, providing a green, clean, and fully equipped living environment.",
+        "address": "Tran Huu Duyet Street, Nam Tu Liem District, Hanoi.",
+        "amenities": "Amenities: Shopping center, infinity pool, gym, children's play area, BBQ area..."
+      },
       "viewMore": "View More",
       "collapse": "Collapse"
-    }
+    },
+    "contacts": {
+      "contactName": "Contact Name",
+      "contactPerson": "Lee Woo Min",
+      "phone": "Phone Number",
+      "phoneNumber": "0123 456 789",
+      "email": "Email",
+      "emailAddress": "Woomin@gmail.com"
+    },
+    "position": "Project Location"
   },
   "header": {
     "home": "Home",

@@ -1,14 +1,16 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { useTranslation } from "react-i18next";
 
 const MapComponent = () => {
   // Vị trí trung tâm bản đồ (tọa độ lat, lng)
   const center = [16.0471, 108.2068]; // Đà Nẵng
+  const { t } = useTranslation("details");
 
   return (
     <div className="mt-8">
-      <h2 className="text-lg font-bold text-black mb-4">Vị trí dự án</h2>
+      <h2 className="text-lg font-bold text-black mb-4">{t("position")}</h2>
       <MapContainer
         center={center}
         zoom={12}
@@ -23,7 +25,7 @@ const MapComponent = () => {
         {/* Marker hiển thị vị trí */}
         <Marker position={center}>
           <Popup>
-            Dự án tại <strong>Đà Nẵng</strong>
+            Dự án tại <strong>Da Nang</strong>
           </Popup>
         </Marker>
       </MapContainer>

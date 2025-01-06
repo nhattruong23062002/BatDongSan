@@ -5,21 +5,57 @@
       "city": "Tp. Đà Nẵng",
       "property": "Cho thuê căn hộ, biệt thự cao cấp"
     },
-    "details": {
-      "title": "Cho thuê căn hộ, biệt thự cao cấp",
-      "district": "Thuộc Quận/Huyện:",
-      "type": "Kiểu dự án:",
-      "status": "Trạng thái:",
-      "price": "6.000.000.000đ",
-      "call": "Liên hệ ngay"
-    },
+
+    "title": "Cho thuê căn hộ, biệt thự cao cấp",
+    "district": "Thuộc Quận/Huyện:",
+    "type": "Kiểu dự án:",
+    "status": "Trạng thái:",
+    "price": "6.000.000.000đ",
+    "call": "Liên hệ ngay",
+    "house": "căn hộ",
+    "sale": "Đang bán (cho thuê)",
+    "contact": "Liên hệ ngay",
+
     "projectDetails": {
       "featuresTitle": "Đặc điểm dự án",
+      "type": "Loại tin rao",
+      "rent": "Cho thuê",
+      "address": "Địa chỉ",
+      "district": "Phường 15, Bình Thạnh",
+      "area": "Diện tích",
+      "areaValue": "175m²",
+      "bedrooms": "Phòng ngủ",
+      "bedroomCount": "3",
+      "bathrooms": "Phòng WC",
+      "bathroomCount": "2",
+      "orientation": "Hướng nhà",
+      "orientationValue": "Đông Nam",
       "contactTitle": "Thông tin liên hệ",
       "descriptionTitle": "Chi tiết dự án",
+      "intro": "Căn hộ cao cấp Eurowindow River Park chính thức được tung ra thị trường. Chính sách siêu khủng gửi tặng khách hàng:",
+      "benefits": [
+        "Tặng vé cứng đi nghỉ dưỡng 3 ngày 2 đêm tại địa điểm du lịch nổi tiếng với giá trị 10 triệu.",
+        "Ngân hàng Techcombank hỗ trợ 70% giá trị căn hộ trong 25 năm, miễn lãi 0% trong 2 năm đầu.",
+        "Chiết khấu 15% khi thanh toán trước 95% giá trị căn hộ.",
+        "Tên dự án: Eurowindow River Park. Chủ đầu tư: Tập đoàn Eurowindow Holdings."
+      ],
+      "expandedDetails": {
+        "location": "Với vị trí đắc địa, dự án Eurowindow River Park nằm sát sông Hồng, mang đến môi trường sống xanh, sạch và đầy đủ tiện nghi.",
+        "address": "Đường Trần Hữu Dực, quận Nam Từ Liêm, Hà Nội.",
+        "amenities": "Tiện ích: Trung tâm thương mại, hồ bơi vô cực, phòng gym, khu vui chơi trẻ em, khu BBQ..."
+      },
       "viewMore": "Xem thêm",
       "collapse": "Thu gọn"
-    }
+    },
+    "contacts": {
+      "contactName": "Tên liên lạc",
+      "contactPerson": "Lee Woo Min",
+      "phone": "Số điện thoại",
+      "phoneNumber": "0123 456 789",
+      "email": "Email",
+      "emailAddress": "Woomin@gmail.com"
+    },
+    "position": "Vị trí dự án"
   },
   "header": {
     "home": "Trang chủ",

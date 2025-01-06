@@ -121,7 +121,7 @@ function Header() {
           >
             {t("contact")}
           </a>
-          <Language hidden={"hidden lg:block"}/>
+          <Language hidden={"hidden lg:block"} />
         </nav>
       </div>
     </div>

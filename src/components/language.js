@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-function Language({hidden}) {
+function Language({ hidden }) {
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
   const { i18n } = useTranslation();
 
@@ -17,9 +17,6 @@ function Language({hidden}) {
   ];
    
   const currentLanguage = languages.find((lang) => lang.code === i18n.language);
-
-  console.log("i18n",i18n)
-  console.log("currentLanguage",currentLanguage)
 
   return (
     <div className={`relative py-1 ${hidden}`}>

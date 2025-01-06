@@ -1,9 +1,6 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 function NewsCard({ news }) {
-  const { t } = useTranslation("newsCard");
-
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md group hover:shadow-lg transition-shadow duration-300">
       <div className="relative">
@@ -19,7 +16,7 @@ function NewsCard({ news }) {
           <span>{news.date}</span>
           <span className="flex items-center space-x-1">
             <span className="text-orange-500">{news.comments}</span>
-            <span>{t("comment")}</span>
+            <span>Bình luận</span>
           </span>
         </div>
         <h3 className="text-gray-800 font-semibold text-lg leading-tight text-left hover:text-orange-500">
@@ -28,7 +25,7 @@ function NewsCard({ news }) {
         <p className="text-gray-600 text-sm mt-2 text-left">
           {news.description}{" "}
           <a href="#" className="text-orange-500">
-            {t("read")}
+            Đọc tiếp
           </a>
         </p>
       </div>
