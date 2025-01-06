@@ -1,6 +1,5 @@
 import React from "react";
-import Footer from "./footer"; // Đảm bảo Footer được import đúng đường dẫn
-
+import Footer from "./footer"
 const Layout = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
