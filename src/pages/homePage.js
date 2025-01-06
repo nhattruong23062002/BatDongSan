@@ -196,7 +196,7 @@ function HomePage() {
       <section
         className="relative bg-cover bg-center h-[600px] lg:h-[800px]"
         style={{
-          backgroundImage: "url('/nen.jpg')",
+          backgroundImage: "url('./Nen.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center">

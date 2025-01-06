@@ -22,7 +22,7 @@ function Header() {
       <div className="container mx-auto max-w-[1280px] flex items-center justify-between h-16 px-6">
         <div className="flex items-center space-x-2">
           <img
-            src="/logo.png"
+            src="./Logo.png"
             alt="Logo"
             className="h-20 w-auto"
             onClick={() => navigation("/")}
