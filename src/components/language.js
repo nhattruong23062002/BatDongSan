@@ -15,7 +15,7 @@ function Language({ hidden }) {
     { code: "en", name: "English", flag: "https://flagcdn.com/w40/us.png" },
     { code: "kr", name: "한국어", flag: "https://flagcdn.com/w40/kr.png" },
   ];
-   
+
   const currentLanguage = languages.find((lang) => lang.code === i18n.language);
 
   return (
@@ -43,7 +43,7 @@ function Language({ hidden }) {
             >
               <img
                 src={lang.flag}
-                alt={lang.name} 
+                alt={lang.name}
                 className="w-5 h-5 rounded-full mr-2 object-cover"
               />
               {lang.name}
