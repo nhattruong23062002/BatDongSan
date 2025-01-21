@@ -1,0 +1,1 @@
+export const API_URL = "https://demo-1wls.onrender.com";

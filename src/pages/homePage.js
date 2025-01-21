@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import Card from "../components/card";
 import NewsCard from "../components/NewCard";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../config/apiUrls";
+import axios from "axios";
+
 
 function HomePage() {
   const [activeType, setActiveType] = useState("BIỆT THỰ");
+  const [propertyTypes, setPropertyTypes] = useState([]);
+
   const { t } = useTranslation("homePage");
 
   const handleButtonClick = (type) => {
@@ -108,44 +113,6 @@ function HomePage() {
     },
   ];
 
-  const featuredProjects = [
-    {
-      id: 1,
-      image:
-        "https://bizweb.dktcdn.net/100/336/794/themes/692935/assets/banner_project_1.png?1705907391239",
-      title: t("featured_projects.flat"),
-      count: 12,
-    },
-    {
-      id: 2,
-      image:
-        "https://bizweb.dktcdn.net/100/336/794/themes/692935/assets/banner_project_2.png?1705907391239",
-      title: t("featured_projects.apartment"),
-      count: 23,
-    },
-    {
-      id: 3,
-      image:
-        "https://bizweb.dktcdn.net/100/336/794/themes/692935/assets/banner_project_3.png?1705907391239",
-      title: t("featured_projects.garden_house"),
-      count: 9,
-    },
-    {
-      id: 4,
-      image:
-        "https://bizweb.dktcdn.net/100/336/794/themes/692935/assets/banner_project_4.png?1705907391239",
-      title: t("featured_projects.villa"),
-      count: 16,
-    },
-    {
-      id: 5,
-      image:
-        "https://bizweb.dktcdn.net/100/336/794/themes/692935/assets/banner_project_5.png?1705907391239",
-      title: t("featured_projects.town_house"),
-      count: 25,
-    },
-  ];
-
   const newsList = [
     {
       id: 1,
@@ -190,6 +157,21 @@ function HomePage() {
       },
     },
   ];
+
+  useEffect(() => {
+    const fetchPropertyTypes = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/propertyTypes`);
+        setPropertyTypes(response.data.payload);
+      } catch (error) {
+        console.error("Error fetching property types:", error);
+      }
+    };
+
+    fetchPropertyTypes();
+  }, []);
+
+  console.log("propertyTypes",propertyTypes)
 
   return (
     <div className="font-sans">
@@ -344,25 +326,25 @@ function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProjects.map((project) => (
+            {propertyTypes.map((project) => (
               <div
-                key={project.id}
+                key={project._id}
                 className={`relative rounded-lg overflow-hidden shadow-lg group ${
                   project.title === "Căn hộ" ? "lg:col-span-2" : ""
                 }`}
               >
                 <img
-                  src={project.image}
-                  alt={project.title}
+                  src={project.imageURL}
+                  alt={project.name}
                   className="w-full h-64 lg:h-96 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent transition-opacity duration-300 group-hover:opacity-0"></div>
                 <div className="absolute bottom-3 left-0 w-full text-white text-center font-semibold transition-transform duration-300">
                   <div className="text-3xl group-hover:-translate-y-2 transition-transform duration-300">
-                    {project.title}
+                    {project.name}
                   </div>
                   <div className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {t("featured_projects.units", { count: project.count })}
+                    {t("유닛", { count: project.count })}
                   </div>
                 </div>
               </div>

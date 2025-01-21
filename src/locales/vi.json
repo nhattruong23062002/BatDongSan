@@ -64,9 +64,8 @@
     "house": "Nhà mặt đất",
     "villa": "Biệt thự",
     "office": "Văn phòng",
-    "news": "Tin tức",
-    "about": "Giới thiệu",
-    "contact": "Liên hệ"
+    "favorite": "Yêu thích",
+    "about": "Giới thiệu"
   },
   "card": {
     "sleep": "Ngủ",

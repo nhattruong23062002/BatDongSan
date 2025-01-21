@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Language from "./language";
+import { API_URL } from "../config/apiUrls";
+import axios from "axios";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [propertyTypes, setPropertyTypes] = useState([]);
   const { t } = useTranslation("header");
   const navigation = useNavigate();
 
@@ -16,6 +19,19 @@ function Header() {
   const toggleSubMenu = () => {
     setIsSubMenuOpen(!isSubMenuOpen);
   };
+
+  useEffect(() => {
+    const fetchPropertyTypes = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/propertyTypes`);
+        setPropertyTypes(response.data.payload);
+      } catch (error) {
+        console.error("Error fetching property types:", error);
+      }
+    };
+
+    fetchPropertyTypes();
+  }, []);
 
   return (
     <div className="bg-white bg-opacity-90 shadow-md">
@@ -75,30 +91,16 @@ function Header() {
             </button>
             {isSubMenuOpen && (
               <div className="absolute left-32 lg:left-0 bg-white shadow-lg rounded-md mt-2 z-10 w-40 text-center">
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 "
-                >
-                  {t("apartment")}
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  {t("house")}
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  {t("villa")}
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  {t("office")}
-                </a>
+                {propertyTypes.map((type) => (
+                  <a
+                    key={type._id} 
+                    href="#"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    onClick={() => navigation(`/propertyTypes/${type._id}`)} 
+                  >
+                    {type.name} 
+                  </a>
+                ))}
               </div>
             )}
           </div>
@@ -107,19 +109,13 @@ function Header() {
             href="#"
             className="block py-2 px-4 hover:text-green-500 transition-colors"
           >
-            {t("news")}
+            {t("favorite")}
           </a>
           <a
             href="#"
             className="block py-2 px-4 hover:text-green-500 transition-colors"
           >
             {t("about")}
-          </a>
-          <a
-            href="#"
-            className="block py-2 px-4 hover:text-green-500 transition-colors"
-          >
-            {t("contact")}
           </a>
           <Language hidden={"hidden lg:block"} />
         </nav>
