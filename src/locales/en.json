@@ -64,9 +64,8 @@
     "house": "House",
     "villa": "Villa",
     "office": "Office",
-    "news": "News",
-    "about": "About",
-    "contact": "Contact"
+    "favorite": "Favorite",
+    "about": "About"
   },
   "card": {
     "sleep": "Sleep",

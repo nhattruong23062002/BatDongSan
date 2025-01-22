@@ -64,10 +64,9 @@
     "house": "주택",
     "villa": "빌라",
     "office": "사무실",
-    "news": "뉴스",
-    "about": "소개",
-    "contact": "연락처"
-  },
+    "favorite": "좋아하다",
+    "about": "소개"
+    },
   "card": {
     "sleep": "잠",
     "shower": "샤워"
