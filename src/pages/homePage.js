@@ -3,7 +3,6 @@ import { IoSearchSharp } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../config/apiUrls";
 import axios from "axios";
-import Card from "../components/Card";
 
 
 function HomePage() {
@@ -118,7 +117,7 @@ function HomePage() {
       image:
         "https://bizweb.dktcdn.net/thumb/large/100/336/794/articles/vinhomes-vingroup.png?v=1540430618343",
       date: "25/10/2018",
-      comments: 0,  
+      comments: 0,
       title: t("news1.title"),
       description: t("news1.description"),
       author: {
