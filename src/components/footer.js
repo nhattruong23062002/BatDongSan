@@ -14,41 +14,40 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-400 py-10">
       <div className="max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
-        {/* About Us */}
         <div>
           <h2 className="text-white text-lg font-bold uppercase">
-            {t("about_us")}
+            회사 소개
           </h2>
           <div className="bg-orange-500 h-0.5 w-full mt-1 opacity-50"></div>
-          <p>{t("about_description_1")}</p>
-          <p className="mt-4">{t("about_description_2")}</p>
+          <p>K-Bro Land는 부동산 시장에서 지속 가능한 발전을 목표로 하는 K-Bro의 제품입니다.</p>
+          <p className="mt-4">홈페이지에서 검색 도구나 링크를 사용하여 판매 또는 임대 최신 목록을 찾으세요.</p>
         </div>
 
         {/* Policies */}
         <div>
           <h2 className="text-white text-lg font-bold uppercase">
-            {t("policies")}
+            정책
           </h2>
           <div className="bg-orange-500 h-0.5 w-full mt-1 opacity-50"></div>
           <ul className="space-y-2">
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.home")}
+                홈
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.listings")}
+                모든 목록
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.about")}
+                회사 소개
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.contact")}
+                문의하기
               </a>
             </li>
           </ul>
@@ -57,14 +56,14 @@ const Footer = () => {
         {/* Contact */}
         <div>
           <h2 className="text-white text-lg font-bold uppercase">
-            {t("contact")}
+            문의하기
           </h2>
           <div className="bg-orange-500 h-0.5 w-full mt-1 opacity-50"></div>
-          <p className="mb-2">{t("contact_support")}</p>
+          <p className="mb-2">지원이 필요하십니까?</p>
 
-          <p className="text-red-500 text-2xl font-bold mb-2">{t("hotline")}</p>
-          <p>{t("address")}</p>
-          <p>{t("email")}</p>
+          <p className="text-red-500 text-2xl font-bold mb-2">1900 6750</p>
+          <p>선짜, 다낭</p>
+          <p>K-bro@gmail.com</p>
           <div className="flex space-x-4 mt-4">
             <a href="#" className="text-gray-400 hover:text-white text-xl">
               <FaFacebook />
@@ -87,33 +86,33 @@ const Footer = () => {
         {/* Guidelines */}
         <div>
           <h2 className="text-white text-lg font-bold uppercase">
-            {t("guidelines")}
+            가이드라인
           </h2>
           <div className="bg-orange-500 h-0.5 w-full mt-1 opacity-50"></div>
           <ul className="space-y-2">
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.home")}
+                홈
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.listings")}
+                모든 목록
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.news")}
+                뉴스
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.about")}
+                회사 소개
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-white">
-                {t("links.contact")}
+                문의하기
               </a>
             </li>
           </ul>
@@ -123,8 +122,8 @@ const Footer = () => {
       {/* Copyright */}
       <div className="text-center mt-10 border-t border-gray-700 pt-6">
         <p className="text-sm">
-          {t("copyright")} <span className="text-green-500">K-bro</span> |{" "}
-          {t("provided_by")} <span className="text-green-500">K-bro IT</span>
+          © 저작권 소유 <span className="text-green-500">K-bro</span> |{" "}
+          제공 <span className="text-green-500">K-bro IT</span>
         </p>
       </div>
     </footer>

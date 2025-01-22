@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
-import Card from "../components/card";
-import NewsCard from "../components/NewCard";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../config/apiUrls";
 import axios from "axios";
+import Card from "../components/Card";
 
 
 function HomePage() {
-  const [activeType, setActiveType] = useState("BIỆT THỰ");
+  const [activeType, setActiveType] = useState("아파트");
   const [propertyTypes, setPropertyTypes] = useState([]);
 
   const { t } = useTranslation("homePage");
@@ -171,7 +170,6 @@ function HomePage() {
     fetchPropertyTypes();
   }, []);
 
-  console.log("propertyTypes",propertyTypes)
 
   return (
     <div className="font-sans">
@@ -182,79 +180,79 @@ function HomePage() {
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center">
-          <h1 className="text-white text-5xl">{t("banner.search_title")}</h1>
+          <h1 className="text-white text-5xl">꿈의 부동산 찾기</h1>
 
           <div className="mt-12 flex items-center space-x-1">
             <select className="bg-orange-500 text-white px-6 py-3 rounded-l-md outline-none">
-              <option value="rent">{t("banner.rent")}</option>
-              <option value="sell">{t("banner.sell")}</option>
+              <option value="rent">임대</option>
+              <option value="sell">판매</option>
             </select>
             <input
               type="text"
-              placeholder={t("banner.search_placeholder")}
+              placeholder="프로젝트, 빌라 검색..."
               className="w-full lg:w-[600px] py-3 px-4"
             />
             <button className="flex items-center bg-green-600 text-white px-6 py-3 rounded-r-md">
               <IoSearchSharp className="text-2xl mr-0 lg:mr-2" />
               <span className="hidden lg:inline">
-                {t("banner.search_button")}
+                빠른 검색
               </span>
             </button>
           </div>
 
           <div className="mt-4 bg-opacity-90 rounded-md p-6 max-w-[700px]">
             <h2 className="text-center text-xl font-semibold mb-6 text-white">
-              {t("banner.quick_search")}
+              유형별 빠른 검색
             </h2>
             <div className="grid grid-cols-3 lg:grid-cols-5 gap-6 text-center">
-              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-24 mx-auto">
-                <img
-                  src="./Bietthu.png"
-                  alt={t("banner.villa")}
-                  className="mx-auto mb-2 w-14 h-14"
-                />
-                <p className="text-white text-sm font-medium">
-                  {t("banner.villa")}
-                </p>
-              </div>
-              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-24 mx-auto">
-                <img
-                  src="./Nhavuon.png"
-                  alt={t("banner.garden_house")}
-                  className="mx-auto mb-2 w-14 h-14"
-                />
-                <p className="text-white text-sm font-medium">
-                  {t("banner.garden_house")}
-                </p>
-              </div>
-              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-24 mx-auto">
-                <img
-                  src="./Nhapho.png"
-                  alt={t("banner.town_house")}
-                  className="mx-auto mb-2 w-14 h-14"
-                />
-                <p className="text-white text-sm font-medium">
-                  {t("banner.town_house")}
-                </p>
-              </div>
-              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-24 mx-auto">
+              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-[110px] mx-auto">
                 <img
                   src="./Chungcu.png"
                   alt={t("banner.apartment")}
                   className="mx-auto mb-2 w-14 h-14"
                 />
                 <p className="text-white text-sm font-medium">
-                  {t("banner.apartment")}
+                  원/투룸
                 </p>
               </div>
-              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-24 mx-auto">
+              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-[110px] mx-auto">
                 <img
                   src="./Canho.png"
                   alt={t("banner.flat")}
                   className="mx-auto mb-2 w-14 h-14"
                 />
                 <p className="text-white text-sm font-medium">
-                  {t("banner.flat")}
+                  아파트
+                </p>
+              </div>
+              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-[110px] mx-auto">
+                <img
+                  src="./Bietthu.png"
+                  alt={t("banner.villa")}
+                  className="mx-auto mb-2 w-14 h-14"
+                />
+                <p className="text-white text-sm font-medium">
+                  주택/빌라
+                </p>
+              </div>
+              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-[110px] mx-auto">
+                <img
+                  src="./Nhavuon.png"
+                  alt={t("banner.garden_house")}
+                  className="mx-auto mb-2 w-14 h-14"
+                />
+                <p className="text-white text-sm font-medium">
+                  가든 하우스
+                </p>
+              </div>
+              <div className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-[110px] mx-auto">
+                <img
+                  src="./Nhapho.png"
+                  alt={t("banner.town_house")}
+                  className="mx-auto mb-2 w-14 h-14"
+                />
+                <p className="text-white text-sm font-medium">
+                  타운하우스
                 </p>
               </div>
             </div>
@@ -266,30 +264,29 @@ function HomePage() {
           <div className="flex justify-between items-center mb-4">
             <div className="text-left">
               <h2 className="text-orange-500 text-2xl font-bold inline text-left">
-                {t("projects.latest_projects")}{" "}
+                최신{" "}
                 <span className="text-black">
-                  {t("projects.latest_projects_subtitle")}
+                  프로젝트
                 </span>
               </h2>
               <p className="text-gray-600 mt-2">
-                {t("projects.latest_projects_description")}
+                이 최신 프로젝트가 근처에 있습니까?
               </p>
             </div>
             <div className="flex space-x-2 mb-6 hidden md:flex">
               {[
-                t("projects.villa"),
-                t("projects.apartment"),
-                t("projects.condominium"),
-                t("projects.garden_house"),
+                "아파트",
+                "주택/빌라",
+                "가든 하우스",
+                "타운하우스",
               ].map((type) => (
                 <button
                   key={type}
                   onClick={() => handleButtonClick(type)}
-                  className={`font-medium px-4 py-2 rounded ${
-                    activeType === type
-                      ? "text-orange-500"
-                      : "text-gray-800 hover:text-orange-500"
-                  }`}
+                  className={`font-medium px-4 py-2 rounded ${activeType === type
+                    ? "text-orange-500"
+                    : "text-gray-800 hover:text-orange-500"
+                    }`}
                 >
                   {type}
                 </button>
@@ -316,22 +313,21 @@ function HomePage() {
         <div className="container mx-auto max-w-[1280px] px-4">
           <div className="text-center mb-8">
             <h2 className="text-orange-500 text-2xl font-bold">
-              {t("featured_projects.title")}{" "}
+              대표적인{" "}
               <span className="text-black">
-                {t("featured_projects.subtitle")}
+                프로젝트
               </span>
             </h2>
             <p className="text-gray-600 mt-2">
-              {t("featured_projects.description")}
+              스타일이라는 차이
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {propertyTypes.map((project) => (
               <div
                 key={project._id}
-                className={`relative rounded-lg overflow-hidden shadow-lg group ${
-                  project.title === "Căn hộ" ? "lg:col-span-2" : ""
-                }`}
+                className={`relative rounded-lg overflow-hidden shadow-lg group ${project.name === "원/투룸" ? "lg:col-span-2" : ""
+                  }`}
               >
                 <img
                   src={project.imageURL}
@@ -344,7 +340,7 @@ function HomePage() {
                     {project.name}
                   </div>
                   <div className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {t("유닛", { count: project.count })}
+                    유닛
                   </div>
                 </div>
               </div>
@@ -352,25 +348,25 @@ function HomePage() {
           </div>
         </div>
       </section>
-      <section className="py-10 bg-gray-100">
-      <div className="container mx-auto max-w-[1280px] px-4">
-        <div className="text-left mb-6">
-          <h2 className="text-orange-500 text-2xl font-bold inline">
-            {t("real_estate_news.title")}{" "}
-            <span className="text-black">{t("real_estate_news.subtitle")}</span>
-          </h2>
-          <p className="text-gray-600 mt-2">
-            {t("real_estate_news.description")}
-          </p>
-        </div>
+      {/* <section className="py-10 bg-gray-100">
+        <div className="container mx-auto max-w-[1280px] px-4">
+          <div className="text-left mb-6">
+            <h2 className="text-orange-500 text-2xl font-bold inline">
+              {t("real_estate_news.title")}{" "}
+              <span className="text-black">{t("real_estate_news.subtitle")}</span>
+            </h2>
+            <p className="text-gray-600 mt-2">
+              {t("real_estate_news.description")}
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newsList.map((news) => (
-            <NewsCard key={news.id} news={news} />
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {newsList.map((news) => (
+              <NewsCard key={news.id} news={news} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section> */}
     </div>
   );
 }
