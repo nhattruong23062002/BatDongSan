@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PropertyDetail from "./pages/PropertyDetail";
-import HomePage from "./pages/HomePage";
 import MapPage from "./pages/MapPage";
 import RegisterForm from "./pages/Register";
 import LoginForm from "./pages/Login";
@@ -11,6 +10,7 @@ import ManageUser from "./pages/ManageUser";
 import ManageProperty from "./pages/ManageProperty";
 import CreateProperty from "./pages/CreateProperty";
 import EditProperty from "./pages/EditProperty";
+import HomePage from "./pages/homePage";
 
 const App = () => {
   return (
