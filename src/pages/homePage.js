@@ -3,7 +3,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../config/apiUrls";
 import axios from "axios";
-import Card from "../components/Card";
+import Card from "../components/CardComponent";
 
 function HomePage() {
   const [activeType, setActiveType] = useState("아파트");

@@ -7,7 +7,7 @@ function Card({ image, tags, title, location, price, details }) {
   const { t } = useTranslation("card");
   const navigation = useNavigate();
   const handleShowDetail = () => {
-     navigation('/detail')
+    navigation('/detail')
   }
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden group" onClick={handleShowDetail}>
