@@ -5,7 +5,6 @@ import { API_URL } from "../config/apiUrls";
 import axios from "axios";
 import Card from "../components/Card";
 
-
 function HomePage() {
   const [activeType, setActiveType] = useState("아파트");
   const [propertyTypes, setPropertyTypes] = useState([]);
