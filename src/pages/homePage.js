@@ -8,8 +8,8 @@ import Card from "../components/Card";
 function HomePage() {
   const [activeType, setActiveType] = useState("아파트");
   const [propertyTypes, setPropertyTypes] = useState([]);
-
   const { t } = useTranslation("homePage");
+
 
   const handleButtonClick = (type) => {
     setActiveType(type);
