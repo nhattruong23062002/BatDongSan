@@ -5,22 +5,24 @@ import axios from "axios";
 import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import { FaHome } from "react-icons/fa";
+import { API_URL } from "../config/apiUrls";
 
 const MapPage = () => {
     const [categories, setCategories] = useState([]);
     const [locations, setLocations] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
-    const [filteredLocationsByAddress, setFilteredLocationsByAddress] =
-        useState([]);
-    const popupRefs = useRef([]);
+    const [filteredLocationsByAddress, setFilteredLocationsByAddress] = useState([]);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false); // State quản lý popup
+    const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
+    const popupRefs = useRef([]);
+
     const handleDoubleClick = (image, index) => {
         setCurrentImageIndex(index); // Cập nhật index của ảnh
         setIsPopupOpen(true); // Mở popup
     };
-    const [searchTerm, setSearchTerm] = useState("");
 
     const closePopup = () => {
         setIsPopupOpen(false); // Đóng popup
@@ -38,83 +40,67 @@ const MapPage = () => {
             prevIndex === selectedLocation.images.length - 1 ? 0 : prevIndex + 1
         );
     };
+
     const fetchImagesForProperty = async (propertyId) => {
         try {
-            const response = await axios.get(
-                `http://localhost:3333/images/${propertyId}`, // Sử dụng propertyId trong URL
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await axios.get(`${API_URL}/images/propertyId/${propertyId}`, {
+                headers: { "Content-Type": "application/json" },
+            });
 
-            // Kiểm tra response
-            if (
-                response.data.code === 200 &&
-                response.data.payload.length > 0
-            ) {
-                const propertyData = response.data.payload[0]; // Lấy đối tượng đầu tiên trong mảng payload
-                return {
-                    mainImageURL:
-                        propertyData.mainImageURL || "/placeholder-image.png",
-                    additionalImages: propertyData.additionalImages || [],
-                };
-            } else {
-                console.error(`Unexpected response format:`, response.data);
-                return {
-                    mainImageURL: "/placeholder-image.png",
-                    additionalImages: [],
-                };
+            const { code, payload } = response.data;
+
+            if (code === 200 && payload?.length > 0) {
+                const { mainImageURL = "/placeholder-image.png", additionalImages = [] } = payload[0];
+                return { mainImageURL, additionalImages };
             }
         } catch (error) {
-            console.error(
-                `Error fetching images for propertyId: ${propertyId}`,
-                error
-            );
-            return {
-                mainImageURL: "/placeholder-image.png",
-                additionalImages: [],
-            };
+            console.error(`Error fetching images for propertyId: ${propertyId}`, error);
         }
+        return { mainImageURL: "/placeholder-image.png", additionalImages: [] };
     };
-    const fetchCoordinates = async (address) => {
-        try {
-            const response = await axios.get(
-                "https://nominatim.openstreetmap.org/search",
-                {
-                    params: {
-                        q: address,
-                        format: "json",
-                        limit: 1,
-                    },
-                }
-            );
 
-            if (response.data.length > 0) {
-                const location = response.data[0];
-                return {
-                    lat: parseFloat(location.lat),
-                    lng: parseFloat(location.lon),
-                };
-            } else {
-                console.error("No coordinates found for address:", address);
-                return { lat: null, lng: null };
+
+
+    const addressCache = new Map();
+
+    const fetchCoordinates = async (address) => {
+        if (addressCache.has(address)) {
+            return addressCache.get(address);
+        }
+        try {
+            const response = await axios.get("https://geocode.search.hereapi.com/v1/geocode", {
+                params: {
+                    q: address,
+                    apiKey: "me5jFFVdL-ZAP6K5qoVWN3TRwcnIQUVZhHdWYRsSx-4",
+                },
+            });
+
+            const location = response.data?.items?.[0]?.position;
+            if (location) {
+                const coordinates = { lat: location.lat, lng: location.lng };
+
+                addressCache.set(address, coordinates);
+                return coordinates;
             }
+
+            console.error("Không tìm thấy tọa độ cho địa chỉ:", address);
+            return { lat: null, lng: null };
         } catch (error) {
-            console.error("Error fetching coordinates:", error);
+            console.error("Lỗi khi gọi API HERE:", error);
             return { lat: null, lng: null };
         }
     };
-    const [loading, setLoading] = useState(true);
+
+
+
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true); // Bắt đầu loading
             try {
                 // Fetch property types (categories)
                 const [categoryResponse, locationResponse] = await Promise.all([
-                    axios.get("http://localhost:3333/propertytypes"),
-                    axios.get("http://localhost:3333/properties"),
+                    axios.get(`${API_URL}/propertytypes`),
+                    axios.get(`${API_URL}/properties`),
                 ]);
                 if (categoryResponse.data.code === 200) {
                     const emojiMap = {
@@ -141,7 +127,6 @@ const MapPage = () => {
                                 item._id
                             );
 
-                            // Fetch coordinates using Nominatim
                             const coordinates = await fetchCoordinates(
                                 item.address
                             );
@@ -183,6 +168,8 @@ const MapPage = () => {
 
         fetchData();
     }, []);
+
+    console.log("location", locations)
 
     // Filter locations by category
     const filteredLocations = locations.filter(
@@ -231,11 +218,10 @@ const MapPage = () => {
                 {categories.map((category) => (
                     <button
                         key={category.id}
-                        className={`flex flex-col items-center gap-2 p-2 rounded-lg transition-all ${
-                            selectedCategory === category.id
-                                ? "bg-blue-100 text-blue-500 border border-blue-500"
-                                : "text-gray-700 hover:bg-gray-100"
-                        }`}
+                        className={`flex flex-col items-center gap-2 p-2 rounded-lg transition-all ${selectedCategory === category.id
+                            ? "bg-blue-100 text-blue-500 border border-blue-500"
+                            : "text-gray-700 hover:bg-gray-100"
+                            }`}
                         onClick={() =>
                             setSelectedCategory(
                                 selectedCategory === category.id
@@ -344,7 +330,7 @@ const MapPage = () => {
                     {/* Hình ảnh */}
                     <div className="flex gap-2 overflow-x-auto mb-4">
                         {selectedLocation.images &&
-                        selectedLocation.images.length > 0 ? (
+                            selectedLocation.images.length > 0 ? (
                             selectedLocation.images.map((image, index) => (
                                 <img
                                     key={index}
@@ -378,7 +364,7 @@ const MapPage = () => {
                                     <img
                                         src={
                                             selectedLocation.images[
-                                                currentImageIndex
+                                            currentImageIndex
                                             ]
                                         }
                                         alt="Popup"
