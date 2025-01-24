@@ -21,14 +21,15 @@ export const getImages = async () => {
 };
 
 export const updateImages = async (idImages, updatedImages) => {
-    for (const [key, value] of updatedImages.entries()) {
-        console.log(`${key}:`, value);
-    }
-
     const response = await axios.patch(`${API_URL}/images/${idImages}`, updatedImages, {
         headers: {
             "Content-Type": "multipart/form-data",
         },
     });
+    return response.data.payload;
+};
+
+export const getImagesByPropertyId = async (propertyId) => {
+    const response = await axios.get(`${API_URL}/images/propertyId/${propertyId}`)
     return response.data.payload;
 };

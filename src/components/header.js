@@ -102,7 +102,7 @@ function Header() {
           </div>
 
           <a
-            href="#"
+            href="/favorite"
             className="block py-2 px-4 hover:text-green-500 transition-colors"
           >
             좋아하다

@@ -17,13 +17,15 @@ const PropertyForm = ({ initialData = {}, onSubmit }) => {
         const fetchPropertyTypes = async () => {
             try {
                 const response = await axios.get(`${API_URL}/propertyTypes`);
-                setPropertyTypes(response.data.payload);
+                const filteredData = response.data.payload.slice(1);
+                setPropertyTypes(filteredData);
             } catch (error) {
                 console.error("Error fetching property types:", error);
             }
         };
         fetchPropertyTypes();
     }, []);
+
 
     useEffect(() => {
         if (initialData) {

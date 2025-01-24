@@ -35,6 +35,7 @@ const EditProperty = () => {
         };
         fetchProperty();
     }, [id]);
+
     const handleSubmit = async ({ mainImageURL, additionalImages, ...values }) => {
         try {
             await updateProperty(id, values);

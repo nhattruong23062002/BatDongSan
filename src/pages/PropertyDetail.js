@@ -1,222 +1,282 @@
-import React, { useState } from "react";
-import { FaPhoneAlt } from "react-icons/fa"; // Import từ react-icons
+import React, { useEffect, useState } from "react";
+import { FaHeart, FaPhoneAlt, FaRegHeart } from "react-icons/fa";
 import "leaflet/dist/leaflet.css";
-import MapComponent from "./MapComponent"; // Import MapComponent
-import { useTranslation } from "react-i18next";
+import MapComponent from "./MapComponent";
+import { useParams } from "react-router-dom";
+import { getDetailProperty } from "../services/propertyService";
+import { getImagesByPropertyId } from "../services/imagesService";
+import { toast, ToastContainer } from "react-toastify";
+import { addFavorite, deleteFavorite, getDetailFavorite } from "../services/favoriteService";
+import { decodeToken, getToken } from "../utils/authUtils";
 
 const PropertyDetail = () => {
-  const { t } = useTranslation("details");
-  const images = [
-    "/images/1.jpg",
-    "/images/house1.jpg",
-    "/images/house2.jpg",
-    "/images/house3.jpg",
-    "/images/house4.jpg",
-  ];
-  const [mainImage, setMainImage] = useState(images[0]);
-  const [isExpanded, setIsExpanded] = useState(false); // State quản lý trạng thái xem thêm
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // State quản lý popup
-  const [popupImage, setPopupImage] = useState(""); // State lưu ảnh của popup
+  const { id } = useParams();
+  const user = decodeToken();
 
-  const handleToggleExpand = () => {
-    setIsExpanded(!isExpanded); // Đảo trạng thái (mở/đóng)
-  };
+  const [mainImage, setMainImage] = useState();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupImage, setPopupImage] = useState("");
+  const [property, setProperty] = useState();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const fetchDetailProperty = async () => {
+      try {
+        const detalProperty = await getDetailProperty(id);
+        const imageProperty = await getImagesByPropertyId(detalProperty._id);
+        const checkFavorite = await getDetailFavorite(user._id, id);
+        if (checkFavorite) setIsFavorite(true);
+        const dataProperty = {
+          ...detalProperty,
+          mainImage: imageProperty[0]?.mainImageURL || null,
+          additionalImages: imageProperty[0]?.additionalImages || null,
+        };
+        setProperty(dataProperty);
+      } catch (error) {
+        console.error("Error fetching property types:", error);
+      }
+    };
+    window.scrollTo(0, 0);
+    fetchDetailProperty();
+  }, []);
+
   const handleDoubleClick = (image) => {
-    setPopupImage(image); // Gán ảnh được double-click vào popup
-    setIsPopupOpen(true); // Mở popup
+    setPopupImage(image);
+    setIsPopupOpen(true);
   };
 
   const closePopup = () => {
-    setIsPopupOpen(false); // Đóng popup
+    setIsPopupOpen(false);
   };
+
+  useEffect(() => {
+    if (property?.additionalImages) {
+      setMainImage(property.additionalImages[0]);
+    }
+  }, [property]);
+
+  const handlePreviousImage = () => {
+    if (property?.additionalImages) {
+      const newIndex = (currentImageIndex - 1 + property.additionalImages.length) % property.additionalImages.length;
+      setCurrentImageIndex(newIndex);
+      setMainImage(property.additionalImages[newIndex]);
+    }
+  };
+
+  const handleNextImage = () => {
+    if (property?.additionalImages) {
+      const newIndex = (currentImageIndex + 1) % property.additionalImages.length;
+      setCurrentImageIndex(newIndex);
+      setMainImage(property.additionalImages[newIndex]);
+    }
+  };
+
+  const toggleFavorite = async () => {
+    if (!user) {
+      toast.error("로그인 해주세요!");
+      return;
+    }
+    setIsFavorite((prev) => !prev);
+    const data = {
+      userId: user._id,
+      propertyId: id,
+    };
+
+    try {
+      if (!isFavorite) {
+        await addFavorite(data);
+        toast.success("즐겨찾기에 성공적으로 추가되었습니다!");
+      } else {
+        await deleteFavorite(data);
+        toast.info("즐겨찾기에서 제거되었습니다.");
+      }
+    } catch (error) {
+      toast.error("오류가 발생했습니다. 다시 시도해주세요.");
+      console.error("Error in toggleFavorite:", error);
+    }
+  };
+
+
 
   return (
     <div className="bg-gray-50 min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Breadcrumb */}
         <div className="text-sm text-gray-500 mb-4">
           <a href="/" className="hover:text-blue-800 transition-colors">
-            {t("breadcrumb.home")} /{" "}
+            홈 /{" "}
           </a>
-          <span> {t("breadcrumb.city")} </span>
-          <span className="text-green-500">{t("breadcrumb.property")}</span>
+          <span> {property?.title} </span>
         </div>
-        {/* Title and Details */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column */}
           <div className="lg:col-span-2">
-            {/* Main Image */}
             <div className="relative mb-4">
               <img
-                src={mainImage}
+                src={property?.mainImage}
                 alt="Main"
-                className="w-full h-[600px] object-cover rounded-lg border"
-                onDoubleClick={() => handleDoubleClick(mainImage)} // Double-click event
+                className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-lg border"
               />
             </div>
 
-            {/* Image Gallery */}
-            <div className="flex items-center gap-2">
-              {/* Previous Button */}
-              <button className="text-gray-500 hover:text-gray-800 font-bold text-xl ">
+            <div className="flex items-center gap-4 justify-between">
+              <button
+                className="text-gray-500 hover:text-gray-800 font-bold text-2xl px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+                onClick={handlePreviousImage}
+              >
                 {"<"}
               </button>
 
-              {/* Image Thumbnails */}
-              <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-                {images.map((image, index) => (
-                  <img
+              <div className="flex gap-4 overflow-x-auto scrollbar-hide px-2">
+                {property?.additionalImages.map((image, index) => (
+                  <div
                     key={index}
-                    src={image}
-                    alt={`Sub ${index}`}
-                    className={`w-24 h-24 object-cover rounded-lg cursor-pointer border-2 ${
-                      mainImage === image
-                        ? "border-blue-500"
-                        : "border-gray-300"
-                    }`}
-                    onClick={() => setMainImage(image)}
-                    onDoubleClick={() => handleDoubleClick(image)} // Double-click event
-                  />
+                    className={`relative group w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 border-2 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 ${mainImage === image
+                      ? "border-blue-500 shadow-lg"
+                      : "border-gray-300 hover:border-blue-500"
+                      }`}
+                    onClick={() => setCurrentImageIndex(index)}
+                    onDoubleClick={() => handleDoubleClick(image)}
+                  >
+                    <img
+                      src={image}
+                      alt={`Sub ${index}`}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all"></div>
+                  </div>
                 ))}
               </div>
 
-              {/* Next Button */}
-              <button className="text-gray-500 hover:text-gray-800 font-bold text-xl">
+              <button
+                className="text-gray-500 hover:text-gray-800 font-bold text-2xl px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+                onClick={handleNextImage}
+              >
                 {">"}
               </button>
             </div>
           </div>
 
-          {/* Right Column */}
-          <div>
+          <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">
-              {t("title")}
+              {property?.title}
             </h1>
             <p className="text-gray-600 mb-2">
-              {t("district")}{" "}
-              <span className="font-medium">Quan Son Tra, Tp. Da Nang</span>
+              <span className="font-medium text-blue-500">주소:</span> {property?.address}
             </p>
             <p className="text-gray-600 mb-2">
-              {t("type")} <span className="font-medium">{t("house")}</span>
+              <span className="font-medium text-blue-500">부동산 유형:</span>{" "}
+              {property?.propertyTypes?.name}
             </p>
             <p className="text-gray-600 mb-2">
-              {t("status")} <span className="text-red-500">{t("sale")}</span>
+              <span className="font-medium text-blue-500">상태:</span>{" "}
+              <span className="text-red-500">{property?.status}</span>
             </p>
             <p className="text-4xl font-bold text-red-500 mb-4">
-              6.000.000.000đ
+              {property?.price?.toLocaleString("vi-VN")}₫
             </p>
-            <button className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 flex items-center">
-              <FaPhoneAlt className="mr-2" /> 0123 456 789 ({t("contact")})
-            </button>
-          </div>
-        </div>
-        {/* Project Details */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Features */}
-          <div className="bg-green-100 p-4 rounded-lg shadow">
-            <h2 className="text-lg font-bold text-green-600 mb-4">
-              {t("projectDetails.featuresTitle")}
-            </h2>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="font-medium">{t("projectDetails.type")}:</span>
-                <span>{t("projectDetails.rent")}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">
-                  {t("projectDetails.address")}:
-                </span>
-                <span>{t("projectDetails.district")}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">{t("projectDetails.area")}:</span>
-                <span>{t("projectDetails.areaValue")}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">
-                  {t("projectDetails.bedrooms")}:
-                </span>
-                <span>{t("projectDetails.bedroomCount")}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">
-                  {t("projectDetails.bathrooms")}:
-                </span>
-                <span>{t("projectDetails.bathroomCount")}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">
-                  {t("projectDetails.orientation")}:
-                </span>
-                <span>{t("projectDetails.orientationValue")}</span>
-              </div>
-            </div>
-          </div>
+            <div className="flex items-center gap-2">
+              <button
+                className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 flex items-center justify-center"
+                onClick={() => (window.location.href = `tel:${property?.contactPhone}`)}
+              >
+                <FaPhoneAlt className="mr-2" />010 5424 3939
+              </button>
+              <button
+                className={`mt-2 px-4 py-2 rounded-lg shadow flex items-center justify-center ${isFavorite ? "text-red-500" : "text-gray-500"
+                  }`}
+                onClick={toggleFavorite}
+              >
+                {isFavorite ? (
+                  <FaHeart className="text-xl" />
+                ) : (
+                  <FaRegHeart className="text-xl" />
+                )}
+                <span className="ml-2">{isFavorite ? "즐겨찾기에 추가됨" : "즐겨찾기"}</span>
 
-          {/* Contact Details */}
-          <div className="bg-green-100 p-4 rounded-lg shadow">
-            <h2 className="text-lg font-bold text-green-600 mb-4">
-              {t("projectDetails.contactTitle")}
-            </h2>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="font-medium">
-                  {t("contacts.contactName")}:
-                </span>
-                <span>{t("contacts.contactPerson")}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">{t("contacts.phone")}:</span>
-                <span>{t("contacts.phoneNumber")}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">{t("contacts.email")}:</span>
-                <span>{t("contacts.emailAddress")}</span>
-              </div>
+              </button>
             </div>
           </div>
         </div>
-        {/* Project Description */}
-        <div className="bg-white mt-8 p-6 rounded-lg shadow">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">
-            {t("projectDetails.descriptionTitle")}
-          </h2>
-          <p className="text-gray-600 mb-4">{t("projectDetails.intro")}</p>
-          <ul className="list-disc pl-6 text-gray-600">
-            {t("projectDetails.benefits", { returnObjects: true }).map(
-              (benefit, index) => (
-                <li key={index}>{benefit}</li>
-              )
-            )}
-          </ul>
-          {isExpanded && (
-            <div className="mt-4">
-              <p className="text-gray-600">
-                {t("projectDetails.expandedDetails.location")}
-              </p>
-              <p className="text-gray-600 mt-2">
-                {t("projectDetails.expandedDetails.address")}
-              </p>
-              <p className="text-gray-600 mt-2">
-                {t("projectDetails.expandedDetails.amenities")}
-              </p>
-            </div>
-          )}
 
-          {/* Nút "Xem thêm" */}
-          <div className="text-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+          <div className="bg-white p-6 shadow-lg rounded-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+            <h2 className="text-xl font-bold text-blue-600 mb-4 border-b-2 border-blue-500 pb-2">
+              프로젝트 정보
+            </h2>
+            <ul className="space-y-3">
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">보증금:</span>
+                <span className="text-gray-800 font-semibold">{property?.deposit?.toLocaleString("vi-VN")}đ</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">면적:</span>
+                <span className="text-gray-800 font-semibold">{property?.area}㎡</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">침실:</span>
+                <span className="text-gray-800 font-semibold">{property?.bedrooms}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">욕실:</span>
+                <span className="text-gray-800 font-semibold">{property?.bathrooms}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">건물명:</span>
+                <span className="text-gray-800 font-semibold">{property?.building}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">층수:</span>
+                <span className="text-gray-800 font-semibold">{property?.numberFloors}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">유닛 수:</span>
+                <span className="text-gray-800 font-semibold">{property?.numberUnits}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">유닛 코드:</span>
+                <span className="text-gray-800 font-semibold">{property?.unitCode}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-600 font-medium">유닛 유형:</span>
+                <span className="text-gray-800 font-semibold">{property?.unitType}</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Thông tin liên hệ */}
+          <div className="bg-white p-6 shadow-lg rounded-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+            <h2 className="text-xl font-bold text-blue-600 mb-4 border-b-2 border-blue-500 pb-2">
+              연락처 정보
+            </h2>
+            <ul className="space-y-3">
+              <li className="flex justify-between items-center">
+                <span className="text-gray-600 font-medium">연락처 이름:</span>
+                <span className="text-gray-800 font-semibold">황성구</span>
+              </li>
+              <li className="flex justify-between items-center">
+                <span className="text-gray-600 font-medium">전화번호:</span>
+                <div className="flex flex-col items-end">
+                  <span className="text-gray-800 font-semibold">010 5424 3939 (KOR)</span>
+                  <span className="text-gray-800 font-semibold">070 599 3988 (VN)</span>
+                </div>
+              </li>
+              <li className="flex justify-between items-center">
+                <span className="text-gray-600 font-medium">이메일:</span>
+                <span className="text-blue-500 font-semibold hover:underline">
+                  hsglove83@nate.com
+                </span>
+              </li>
+            </ul>
             <button
-              onClick={handleToggleExpand}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 "
+              className="mt-4 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 w-full"
+              onClick={() => (window.location.href = "tel:01054243939")}
             >
-              {isExpanded
-                ? t("projectDetails.viewMore")
-                : t("projectDetails.collapse")}
+              연락하기
             </button>
           </div>
         </div>
-        <MapComponent /> {/* Tích hợp bản đồ vào đây */}
-        {/* Popup */}
+
+        <MapComponent address={property?.address} />
         {isPopupOpen && (
           <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-4 rounded-lg shadow-lg relative max-w-3xl">
@@ -235,6 +295,7 @@ const PropertyDetail = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

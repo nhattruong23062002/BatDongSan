@@ -3,12 +3,7 @@ import { API_URL } from "../config/apiUrls";
 import { getToken } from "../utils/authUtils";
 
 const getProperties = async () => {
-    const token = getToken();
-    const response = await axios.get(`${API_URL}/properties`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+    const response = await axios.get(`${API_URL}/properties`);
     return response.data.payload;
 };
 

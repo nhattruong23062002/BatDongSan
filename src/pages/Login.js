@@ -25,7 +25,7 @@ function LoginForm() {
                 const decodedToken = decodeToken();
                 const role = decodedToken?.role;
                 if (role === "admin") {
-                    navigate("/admin/manager");
+                    navigate("/admin/dashboard");
                 } else if (role === "user") {
                     navigate("/");
                 }
