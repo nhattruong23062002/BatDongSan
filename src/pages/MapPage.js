@@ -6,13 +6,15 @@ import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import { FaHome } from "react-icons/fa";
 import { API_URL } from "../config/apiUrls";
+import { useParams, useNavigate } from "react-router-dom";
 
 const MapPage = () => {
     const [categories, setCategories] = useState([]);
     const [locations, setLocations] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
-    const [filteredLocationsByAddress, setFilteredLocationsByAddress] = useState([]);
+    const [filteredLocationsByAddress, setFilteredLocationsByAddress] =
+        useState([]);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isPopupOpen, setIsPopupOpen] = useState(false); // State quản lý popup
     const [loading, setLoading] = useState(true);
@@ -43,23 +45,30 @@ const MapPage = () => {
 
     const fetchImagesForProperty = async (propertyId) => {
         try {
-            const response = await axios.get(`${API_URL}/images/propertyId/${propertyId}`, {
-                headers: { "Content-Type": "application/json" },
-            });
+            const response = await axios.get(
+                `${API_URL}/images/propertyId/${propertyId}`,
+                {
+                    headers: { "Content-Type": "application/json" },
+                }
+            );
 
             const { code, payload } = response.data;
 
             if (code === 200 && payload?.length > 0) {
-                const { mainImageURL = "/placeholder-image.png", additionalImages = [] } = payload[0];
+                const {
+                    mainImageURL = "/placeholder-image.png",
+                    additionalImages = [],
+                } = payload[0];
                 return { mainImageURL, additionalImages };
             }
         } catch (error) {
-            console.error(`Error fetching images for propertyId: ${propertyId}`, error);
+            console.error(
+                `Error fetching images for propertyId: ${propertyId}`,
+                error
+            );
         }
         return { mainImageURL: "/placeholder-image.png", additionalImages: [] };
     };
-
-
 
     const addressCache = new Map();
 
@@ -68,12 +77,15 @@ const MapPage = () => {
             return addressCache.get(address);
         }
         try {
-            const response = await axios.get("https://geocode.search.hereapi.com/v1/geocode", {
-                params: {
-                    q: address,
-                    apiKey: "me5jFFVdL-ZAP6K5qoVWN3TRwcnIQUVZhHdWYRsSx-4",
-                },
-            });
+            const response = await axios.get(
+                "https://geocode.search.hereapi.com/v1/geocode",
+                {
+                    params: {
+                        q: address,
+                        apiKey: "me5jFFVdL-ZAP6K5qoVWN3TRwcnIQUVZhHdWYRsSx-4",
+                    },
+                }
+            );
 
             const location = response.data?.items?.[0]?.position;
             if (location) {
@@ -90,18 +102,20 @@ const MapPage = () => {
             return { lat: null, lng: null };
         }
     };
-
-
+    const { category } = useParams(); // Lấy category từ URL
 
     useEffect(() => {
+        setSelectedCategory(category);
         const fetchData = async () => {
             setLoading(true); // Bắt đầu loading
             try {
-                // Fetch property types (categories)
+                // Fetch property types (categories) và properties (locations)
                 const [categoryResponse, locationResponse] = await Promise.all([
                     axios.get(`${API_URL}/propertytypes`),
                     axios.get(`${API_URL}/properties`),
                 ]);
+
+                // Xử lý categories
                 if (categoryResponse.data.code === 200) {
                     const emojiMap = {
                         "678287b058712ad353461cad": "🏠",
@@ -119,14 +133,15 @@ const MapPage = () => {
                         }));
                     setCategories(formattedCategories);
                 }
+
+                // Xử lý locations
                 if (locationResponse.data.code === 200) {
                     const locationsWithDetails = await Promise.all(
                         locationResponse.data.payload.map(async (item) => {
-                            // Fetch images for each property
+                            // Fetch images và tọa độ
                             const images = await fetchImagesForProperty(
                                 item._id
                             );
-
                             const coordinates = await fetchCoordinates(
                                 item.address
                             );
@@ -152,24 +167,32 @@ const MapPage = () => {
                                 numberUnits: item.numberUnits,
                                 unitcode: item.unitCode,
                                 status: item.status,
-                                lat: coordinates.lat || 16.054079, // Fallback if no coordinates found
+                                lat: coordinates.lat || 16.054079, // Fallback nếu không có tọa độ
                                 lng: coordinates.lng || 108.20723,
                             };
                         })
                     );
 
-                    setLocations(locationsWithDetails);
+                    // Lọc locations dựa trên category từ URL
+                    const filteredLocations =
+                        category && category !== "all"
+                            ? locationsWithDetails.filter(
+                                  (location) =>
+                                      location.propertyTypeId === category
+                              )
+                            : locationsWithDetails; // Nếu không có category, hiển thị tất cả
+
+                    setLocations(filteredLocations);
                 }
-                setLoading(false); // Kết thúc loading
             } catch (error) {
                 console.error("Error fetching data:", error);
+            } finally {
+                setLoading(false); // Kết thúc loading
             }
         };
 
         fetchData();
-    }, []);
-
-    console.log("location", locations)
+    }, [category]); // Theo dõi sự thay đổi của `category`
 
     // Filter locations by category
     const filteredLocations = locations.filter(
@@ -210,7 +233,7 @@ const MapPage = () => {
             popupAnchor: [0, -40], // Điểm neo của popup
         });
     };
-
+    const navigate = useNavigate();
     return (
         <div className="flex h-screen">
             {/* Sidebar for Categories */}
@@ -218,17 +241,12 @@ const MapPage = () => {
                 {categories.map((category) => (
                     <button
                         key={category.id}
-                        className={`flex flex-col items-center gap-2 p-2 rounded-lg transition-all ${selectedCategory === category.id
-                            ? "bg-blue-100 text-blue-500 border border-blue-500"
-                            : "text-gray-700 hover:bg-gray-100"
-                            }`}
-                        onClick={() =>
-                            setSelectedCategory(
-                                selectedCategory === category.id
-                                    ? null
-                                    : category.id
-                            )
-                        }
+                        className={`flex flex-col items-center gap-2 p-2 rounded-lg transition-all ${
+                            category.id === selectedCategory // Kiểm tra nếu `category.id` khớp với `selectedCategory`
+                                ? "bg-blue-100 text-blue-500 border border-blue-500"
+                                : "text-gray-700 hover:bg-gray-100"
+                        }`}
+                        onClick={() => navigate(`/map/${category.id}`)} // Chuyển hướng đến URL với ID danh mục
                     >
                         <span className="text-3xl">{category.icon}</span>
                         <span className="text-xs font-medium text-center">
@@ -330,7 +348,7 @@ const MapPage = () => {
                     {/* Hình ảnh */}
                     <div className="flex gap-2 overflow-x-auto mb-4">
                         {selectedLocation.images &&
-                            selectedLocation.images.length > 0 ? (
+                        selectedLocation.images.length > 0 ? (
                             selectedLocation.images.map((image, index) => (
                                 <img
                                     key={index}
@@ -364,7 +382,7 @@ const MapPage = () => {
                                     <img
                                         src={
                                             selectedLocation.images[
-                                            currentImageIndex
+                                                currentImageIndex
                                             ]
                                         }
                                         alt="Popup"
@@ -506,7 +524,7 @@ const MapPage = () => {
                         {/* Profile Section */}
                         <div className="flex items-center mb-4">
                             <img
-                                src="./logo.png" // Thay bằng URL hình đại diện
+                                src="/Logo.png" // Thay bằng URL hình đại diện
                                 alt="Profile"
                                 className="w-12 h-12 rounded-full mr-4"
                             />

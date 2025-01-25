@@ -14,8 +14,8 @@ import HomePage from "./pages/homePage";
 import Dashboard from "./pages/DashBoard";
 import SearchResults from "./pages/SearchResult";
 import FavoriteProperty from "./pages/FavoriteProperty";
-import "./App.css"
 import ProtectedRoute from "./components/ProtectedRoute";
+import "./App.css"
 
 const App = () => {
   return (
@@ -24,6 +24,7 @@ const App = () => {
         <Route element={<LayoutUser />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/detail/:id" element={<PropertyDetail />} />
+          <Route path="/map/:category" element={<MapPage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />
