@@ -13,12 +13,7 @@ const getFavotites = async () => {
 };
 
 const getDetailFavorite = async (userId, propertyId) => {
-    const token = getToken();
-    const response = await axios.get(`${API_URL}/favorites/detail/${userId}/${propertyId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+    const response = await axios.get(`${API_URL}/favorites/detail/${userId}/${propertyId}`);
     return response.data.payload;
 };
 

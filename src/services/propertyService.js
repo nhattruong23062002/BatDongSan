@@ -8,12 +8,7 @@ const getProperties = async () => {
 };
 
 const getDetailProperty = async (id) => {
-    const token = getToken();
-    const response = await axios.get(`${API_URL}/properties/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+    const response = await axios.get(`${API_URL}/properties/${id}`);
     return response.data.payload;
 };
 

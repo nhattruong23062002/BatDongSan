@@ -15,6 +15,7 @@ import Dashboard from "./pages/DashBoard";
 import SearchResults from "./pages/SearchResult";
 import FavoriteProperty from "./pages/FavoriteProperty";
 import "./App.css"
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
@@ -30,7 +31,14 @@ const App = () => {
           <Route path="/favorite" element={<FavoriteProperty />} />
         </Route>
 
-        <Route path="/admin" element={<LayoutAdmin />}>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute role="admin">
+              <LayoutAdmin />
+            </ProtectedRoute>
+          }
+        >
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="manageUser" element={<ManageUser />} />
           <Route path="manageProperty" element={<ManageProperty />} />
