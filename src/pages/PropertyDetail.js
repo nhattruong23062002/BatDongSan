@@ -25,8 +25,10 @@ const PropertyDetail = () => {
       try {
         const detalProperty = await getDetailProperty(id);
         const imageProperty = await getImagesByPropertyId(detalProperty._id);
-        const checkFavorite = await getDetailFavorite(user._id, id);
-        if (checkFavorite) setIsFavorite(true);
+        if (user) {
+          const checkFavorite = await getDetailFavorite(user._id, id);
+          if (checkFavorite) setIsFavorite(true);
+        }
         const dataProperty = {
           ...detalProperty,
           mainImage: imageProperty[0]?.mainImageURL || null,
