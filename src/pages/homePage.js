@@ -13,18 +13,15 @@ function HomePage() {
     const [properties, setProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredProperties, setFilteredProperties] = useState([]);
+    const [listingType, setListingType] = useState("Rent");
 
     const navigate = useNavigate();
 
-    // Điều hướng đến MapPage khi click vào danh mục
-    // const handleCategoryClick = (type) => {
-    //     navigate(`/map/${type}`);
-    // };
-
-    // Tìm kiếm
     const handleSearch = () => {
         if (searchQuery.trim() !== "") {
-            navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+            navigate(
+                `/search?query=${encodeURIComponent(searchQuery)}&type=${encodeURIComponent(listingType)}`
+            );
         }
     };
 
@@ -62,8 +59,9 @@ function HomePage() {
         );
         setFilteredProperties(filtered);
     }, [properties, activeType]);
+
     const handleButtonClick = (categoryId) => {
-        navigate(`/map/${categoryId}`); // Sử dụng ID thay vì name
+        navigate(`/map/${categoryId}`);
     };
     return (
         <div className="font-sans">
@@ -77,9 +75,9 @@ function HomePage() {
                     <h1 className="text-white text-5xl">꿈의 부동산 찾기</h1>
 
                     <div className="mt-12 flex items-center space-x-1">
-                        <select className="bg-orange-500 text-white px-6 py-3 rounded-l-md outline-none hover:bg-orange-600">
-                            <option value="rent">임대</option>
-                            <option value="sell">판매</option>
+                        <select className="bg-orange-500 text-white px-6 py-3 rounded-l-md outline-none hover:bg-orange-600" onChange={(e) => setListingType(e.target.value)} >
+                            <option value="Rent">임대</option>
+                            <option value="Sell">판매</option>
                         </select>
                         <input
                             type="text"
@@ -104,27 +102,27 @@ function HomePage() {
                         <div className="grid grid-cols-3 lg:grid-cols-5 gap-6 text-center">
                             {[
                                 {
-                                    id: "678287b058712ad353461cad", // ID của 원/투룸
+                                    id: "678287b058712ad353461cad",
                                     name: "원/투룸",
                                     image: "./Chungcu.png",
                                 },
                                 {
-                                    id: "678287f258712ad353461caf", // ID của 아파트
+                                    id: "678287f258712ad353461caf",
                                     name: "아파트",
                                     image: "./Canho.png",
                                 },
                                 {
-                                    id: "6782882b58712ad353461cb1", // ID của 주택/빌라
+                                    id: "6782882b58712ad353461cb1",
                                     name: "주택/빌라",
                                     image: "./Bietthu.png",
                                 },
                                 {
-                                    id: "67828a8258712ad353461cc2", // ID của 가든 하우스
+                                    id: "67828a8258712ad353461cc2",
                                     name: "가든 하우스",
                                     image: "./Nhavuon.png",
                                 },
                                 {
-                                    id: "678289ef58712ad353461cc0", // ID của 타운하우스
+                                    id: "678289ef58712ad353461cc0",
                                     name: "타운하우스",
                                     image: "./Nhapho.png",
                                 },
@@ -134,7 +132,7 @@ function HomePage() {
                                     className="backdrop-opacity-10 backdrop-invert bg-white/10 shadow py-2 px-4 rounded w-[110px] mx-auto hover:bg-opacity-20 hover:bg-white cursor-pointer"
                                     onClick={() =>
                                         handleButtonClick(category.id)
-                                    } // Sử dụng ID ở đây
+                                    }
                                 >
                                     <img
                                         src={category.image}
@@ -173,11 +171,10 @@ function HomePage() {
                                 <button
                                     key={type}
                                     onClick={() => setActiveType(type)}
-                                    className={`font-medium px-4 py-2 rounded ${
-                                        activeType === type
-                                            ? "text-orange-500"
-                                            : "text-gray-800 hover:text-orange-500"
-                                    }`}
+                                    className={`font-medium px-4 py-2 rounded ${activeType === type
+                                        ? "text-orange-500"
+                                        : "text-gray-800 hover:text-orange-500"
+                                        }`}
                                 >
                                     {type}
                                 </button>
@@ -201,11 +198,10 @@ function HomePage() {
                         {propertyTypes.map((project) => (
                             <div
                                 key={project._id}
-                                className={`relative rounded-lg overflow-hidden shadow-lg group cursor-pointer ${
-                                    project.name === "원/투룸"
-                                        ? "lg:col-span-2"
-                                        : ""
-                                }`}
+                                className={`relative rounded-lg overflow-hidden shadow-lg group cursor-pointer ${project.name === "원/투룸"
+                                    ? "lg:col-span-2"
+                                    : ""
+                                    }`}
                                 onClick={() => navigate(`/map/${project._id}`)} // Chuyển hướng khi nhấn vào danh mục
                             >
                                 <img

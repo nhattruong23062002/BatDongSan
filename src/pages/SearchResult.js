@@ -8,14 +8,19 @@ function SearchResults() {
     const [properties, setProperties] = useState([]);
     const location = useLocation();
     const query = new URLSearchParams(location.search).get("query");
+    const type = new URLSearchParams(location.search).get("type");
 
     useEffect(() => {
         const fetchSearchResults = async () => {
             try {
                 const allProperties = await getProperties();
-                const filteredProperties = allProperties.filter((property) =>
-                    property.title.toLowerCase().includes(query.toLowerCase()),
-                );
+
+                const filteredProperties = allProperties.filter((property) => {
+                    const matchesTitle = property.title.toLowerCase().includes(query.toLowerCase());
+                    const matchesType = type ? property.listingType === type : true;
+                    return matchesTitle && matchesType;
+                });
+
                 const propertiesWithImages = await Promise.all(
                     filteredProperties.map(async (property) => {
                         const imagesResponse = await getImagesByPropertyId(property._id);
@@ -25,6 +30,7 @@ function SearchResults() {
                         };
                     })
                 );
+
                 setProperties(propertiesWithImages);
             } catch (error) {
                 console.error("Error fetching search results:", error);
@@ -32,7 +38,7 @@ function SearchResults() {
         };
 
         fetchSearchResults();
-    }, [query]);
+    }, [query, type]);
 
     return (
         <div className="container mx-auto max-w-[1280px] min-h-[600px] px-4 py-10">

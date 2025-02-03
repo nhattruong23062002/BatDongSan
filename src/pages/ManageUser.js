@@ -28,7 +28,7 @@ const ManageUser = () => {
         try {
             if (editingUser) {
                 const updatedUser = await updateUser(editingUser._id, userData);
-                toast.success("사용자가 성공적으로 업데이트되었습니다.");
+                toast.success("사용자가 성공적으로 업데이트되었습니다.", { autoClose: 1500 });
                 setUsers((prevUsers) =>
                     prevUsers.map((user) =>
                         user._id === editingUser._id ? updatedUser : user
@@ -36,13 +36,13 @@ const ManageUser = () => {
                 );
             } else {
                 const newUser = await addUser(userData);
-                toast.success("사용자가 성공적으로 추가되었습니다.");
+                toast.success("사용자가 성공적으로 추가되었습니다.", { autoClose: 1500 });
                 setUsers((prevUsers) => [...prevUsers, newUser]);
             }
             setIsModalVisible(false);
         } catch (error) {
             console.error("Error submitting user:", error);
-            toast.error("서버 요청에 오류가 발생했습니다.");
+            toast.error("서버 요청에 오류가 발생했습니다.", { autoClose: 1500 });
         }
     };
 
@@ -74,10 +74,10 @@ const ManageUser = () => {
         try {
             await deleteUser(userId);
             setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
-            toast.success("사용자가 성공적으로 삭제되었습니다.");
+            toast.success("사용자가 성공적으로 삭제되었습니다.", { autoClose: 1500 });
         } catch (error) {
             console.error("Error deleting user:", error);
-            toast.error("사용자를 삭제하는 중 오류가 발생했습니다.");
+            toast.error("사용자를 삭제하는 중 오류가 발생했습니다.", { autoClose: 1500 });
         }
     };
 

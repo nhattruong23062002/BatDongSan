@@ -20,8 +20,9 @@ function AdminSidebar() {
     ];
 
     return (
-        <div className="h-screen w-64 bg-white shadow-md flex flex-col">
-            <div className="flex items-center justify-center h-20 border-b">
+        <div className="min-h-screen w-64 bg-white shadow-md flex flex-col">
+            <div></div>
+            <div className="flex items-center justify-center h-20 border-b" >
                 <div className="flex items-center space-x-3">
                     <img
                         src="/Logo.png"

@@ -116,7 +116,7 @@ const PropertyForm = ({ initialData = {}, onSubmit }) => {
                     <Row gutter={24}>
                         <Col span={8}>
                             <Form.Item
-                                label="가격 (₩)"
+                                label="가격 (đ)"
                                 name="price"
                                 rules={[{ required: true, message: "가격은 필수 입력 사항입니다." }]}
                             >
@@ -124,14 +124,14 @@ const PropertyForm = ({ initialData = {}, onSubmit }) => {
                                     placeholder="가격을 입력하세요"
                                     style={{ width: "100%" }}
                                     formatter={(value) =>
-                                        `₩ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                        `đ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                                     }
                                 />
                             </Form.Item>
                         </Col>
                         <Col span={8}>
                             <Form.Item
-                                label="보증금 (₩)"
+                                label="보증금 (đ)"
                                 name="deposit"
                                 rules={[{ required: true, message: "보증금은 필수 입력 사항입니다." }]}
                             >
@@ -139,22 +139,24 @@ const PropertyForm = ({ initialData = {}, onSubmit }) => {
                                     placeholder="보증금을 입력하세요"
                                     style={{ width: "100%" }}
                                     formatter={(value) =>
-                                        `₩ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                        `đ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                                     }
                                 />
                             </Form.Item>
                         </Col>
                         <Col span={8}>
                             <Form.Item
-                                label="단위 수"
-                                name="numberUnits"
-                                rules={[{ required: true, message: "단위 수는 필수 입력 사항입니다." }]}
+                                label="거래 유형"
+                                name="listingType"
+                                rules={[{ required: true, message: "거래 유형을 선택하세요." }]}
                             >
-                                <Input placeholder="단위 수를 입력하세요" style={{ width: "100%" }} />
+                                <Select placeholder="거래 유형을 선택하세요">
+                                    <Option value="Rent">임대</Option>
+                                    <Option value="Sale">판매</Option>
+                                </Select>
                             </Form.Item>
                         </Col>
                     </Row>
-
                     <Row gutter={24}>
                         <Col span={8}>
                             <Form.Item
@@ -224,34 +226,15 @@ const PropertyForm = ({ initialData = {}, onSubmit }) => {
                         </Col>
                         <Col span={8}>
                             <Form.Item
-                                label="빌딩 이름"
-                                name="building"
-                                rules={[{ required: true, message: "빌딩 이름은 필수 입력 사항입니다." }]}
+                                label="방 개수/층 수"
+                                name="numberRoom"
+                                rules={[{ required: true, message: "방 개수는 필수 입력 사항입니다." }]}
                             >
-                                <Input placeholder="빌딩 이름을 입력하세요" />
+                                <Input placeholder="방 개수를 입력하세요" style={{ width: "100%" }} />
                             </Form.Item>
                         </Col>
                     </Row>
-
                     <Row gutter={24}>
-                        <Col span={8}>
-                            <Form.Item
-                                label="층수"
-                                name="numberFloors"
-                                rules={[{ required: true, message: "층수는 필수 입력 사항입니다." }]}
-                            >
-                                <InputNumber placeholder="층수를 입력하세요" style={{ width: "100%" }} />
-                            </Form.Item>
-                        </Col>
-                        <Col span={8}>
-                            <Form.Item
-                                label="유닛 코드"
-                                name="unitCode"
-                                rules={[{ required: true, message: "유닛 코드는 필수 입력 사항입니다." }]}
-                            >
-                                <Input placeholder="유닛 코드를 입력하세요" />
-                            </Form.Item>
-                        </Col>
                         <Col span={8}>
                             <Form.Item
                                 label="유닛 타입"
@@ -259,6 +242,36 @@ const PropertyForm = ({ initialData = {}, onSubmit }) => {
                                 rules={[{ required: true, message: "유닛 타입은 필수 입력 사항입니다." }]}
                             >
                                 <Input placeholder="유닛 타입을 입력하세요" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item
+                                label="빌딩 이름"
+                                name="building"
+                            >
+                                <Input placeholder="빌딩 이름을 입력하세요" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item
+                                label="임대 기간"
+                                name="leaseTerm"
+                            >
+                                <Input placeholder="임대 기간을 입력하세요 (예: 12개월)" style={{ width: "100%" }} />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={24}>
+                            <Form.Item
+                                label="설명"
+                                name="description"
+                            >
+                                <Input.TextArea
+                                    placeholder="부동산에 대한 설명을 입력하세요."
+                                    rows={4}
+                                    style={{ width: "100%" }}
+                                />
                             </Form.Item>
                         </Col>
                     </Row>
