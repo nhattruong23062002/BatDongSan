@@ -28,7 +28,7 @@ const EditProperty = () => {
                     additionalImages: propertyImages?.additionalImages || [],
                 });
             } catch (error) {
-                toast.error("부동산 데이터를 가져오는 중 오류가 발생했습니다.");
+                toast.error("부동산 데이터를 가져오는 중 오류가 발생했습니다.", { autoClose: 1500 });
             } finally {
                 setLoading(false);
             }
@@ -67,7 +67,7 @@ const EditProperty = () => {
             });
         } catch (error) {
             console.error("Error updating property or images:", error);
-            toast.error("부동산 업데이트 중 오류가 발생했습니다.");
+            toast.error("부동산 업데이트 중 오류가 발생했습니다.", { autoClose: 1500 });
         }
     };
 

@@ -45,11 +45,11 @@ function Card({ properties }) {
             <div className="border-t border-gray-200 px-4 py-2 grid grid-cols-3 text-sm text-gray-600">
               <div className="flex items-center justify-center">
                 <FaBed className="text-gray-300 mb-1 text-xl mr-2" />
-                <span>{property.bedrooms} {t("sleep")}</span>
+                <span>{property.bedrooms} 잠</span>
               </div>
               <div className="flex items-center justify-center border-l border-gray-200">
                 <FaBath className="text-gray-300 mb-1 text-xl mr-2" />
-                <span>{property.bathrooms} {t("shower")}</span>
+                <span>{property.bathrooms} 욕실</span>
               </div>
               <div className="flex items-center justify-center border-l border-gray-200">
                 <FaRulerCombined className="text-gray-300 mb-1 text-xl mr-2" />

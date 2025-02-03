@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaPhoneAlt, FaRegHeart } from "react-icons/fa";
 import "leaflet/dist/leaflet.css";
-import MapComponent from "./MapComponent";
 import { useParams } from "react-router-dom";
 import { getDetailProperty } from "../services/propertyService";
 import { getImagesByPropertyId } from "../services/imagesService";
 import { toast, ToastContainer } from "react-toastify";
 import { addFavorite, deleteFavorite, getDetailFavorite } from "../services/favoriteService";
 import { decodeToken, getToken } from "../utils/authUtils";
+import MapComponent from "../components/MapComponent";
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -76,7 +76,7 @@ const PropertyDetail = () => {
 
   const toggleFavorite = async () => {
     if (!user) {
-      toast.error("로그인 해주세요!");
+      toast.error("로그인 해주세요!", { autoClose: 1500 });
       return;
     }
     setIsFavorite((prev) => !prev);
@@ -88,14 +88,13 @@ const PropertyDetail = () => {
     try {
       if (!isFavorite) {
         await addFavorite(data);
-        toast.success("즐겨찾기에 성공적으로 추가되었습니다!");
+        toast.success("즐겨찾기에 성공적으로 추가되었습니다!", { autoClose: 1500 });
       } else {
         await deleteFavorite(data);
-        toast.info("즐겨찾기에서 제거되었습니다.");
+        toast.info("즐겨찾기에서 제거되었습니다.", { autoClose: 1500 });
       }
     } catch (error) {
-      toast.error("오류가 발생했습니다. 다시 시도해주세요.");
-      console.error("Error in toggleFavorite:", error);
+      toast.error("오류가 발생했습니다. 다시 시도해주세요.", { autoClose: 1500 });
     }
   };
 
@@ -169,10 +168,16 @@ const PropertyDetail = () => {
               <span className="font-medium text-blue-500">부동산 유형:</span>{" "}
               {property?.propertyTypes?.name}
             </p>
-            <p className="text-gray-600 mb-2">
-              <span className="font-medium text-blue-500">상태:</span>{" "}
-              <span className="text-red-500">{property?.status}</span>
-            </p>
+            <div className={`text-gray-600 mb-2 ${property?.status === "Available" ? "text-green-500" : property?.status === "Rented" ? "text-orange-500" : "text-gray-500"}`}>
+              <span className="font-medium text-blue-500">상태:</span> {property?.status === "Available" ? "사용 가능" : property?.status === "Rented" ? "임대됨" : "판매됨"}
+            </div>
+            {
+              property?.description && (
+                <div className="text-gray-600 mb-2">
+                  <span className="font-medium text-blue-500">설명:</span> {property?.description}
+                </div>
+              )
+            }
             <p className="text-4xl font-bold text-red-500 mb-4">
               {property?.price?.toLocaleString("vi-VN")}₫
             </p>
@@ -222,21 +227,21 @@ const PropertyDetail = () => {
                 <span className="text-gray-600 font-medium">욕실:</span>
                 <span className="text-gray-800 font-semibold">{property?.bathrooms}</span>
               </li>
+              {property?.building && (
+                <li className="flex justify-between">
+                  <span className="text-gray-600 font-medium">건물명:</span>
+                  <span className="text-gray-800 font-semibold">{property?.building}</span>
+                </li>
+              )}
               <li className="flex justify-between">
-                <span className="text-gray-600 font-medium">건물명:</span>
-                <span className="text-gray-800 font-semibold">{property?.building}</span>
+                <span className="text-gray-600 font-medium">방 개수/층 수:</span>
+                <span className="text-gray-800 font-semibold">{property?.numberRoom}</span>
               </li>
               <li className="flex justify-between">
-                <span className="text-gray-600 font-medium">층수:</span>
-                <span className="text-gray-800 font-semibold">{property?.numberFloors}</span>
-              </li>
-              <li className="flex justify-between">
-                <span className="text-gray-600 font-medium">유닛 수:</span>
-                <span className="text-gray-800 font-semibold">{property?.numberUnits}</span>
-              </li>
-              <li className="flex justify-between">
-                <span className="text-gray-600 font-medium">유닛 코드:</span>
-                <span className="text-gray-800 font-semibold">{property?.unitCode}</span>
+                <span className="text-gray-600 font-medium">거래 유형:</span>
+                <span className="text-gray-800 font-semibold">
+                  {property?.listingType === "Sell" ? "판매" : "임대"}
+                </span>
               </li>
               <li className="flex justify-between">
                 <span className="text-gray-600 font-medium">유닛 유형:</span>
@@ -291,7 +296,7 @@ const PropertyDetail = () => {
               <img
                 src={popupImage}
                 alt="Popup"
-                className="w-full h-auto rounded-lg"
+                className="w-full max-h-[600px] rounded-lg"
               />
             </div>
           </div>

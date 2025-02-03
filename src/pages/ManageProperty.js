@@ -28,7 +28,7 @@ const ManageProperty = () => {
 
     useEffect(() => {
         if (location.state?.message) {
-            toast.success(location.state.message);
+            toast.success(location.state.message, { autoClose: 1500 });
         }
     }, [location]);
 
@@ -62,10 +62,10 @@ const ManageProperty = () => {
             setProperties((prevProperties) =>
                 prevProperties.filter((property) => property._id !== propertyId)
             );
-            toast.success("부동산이 성공적으로 삭제되었습니다.");
+            toast.success("부동산이 성공적으로 삭제되었습니다.", { autoClose: 1500 });
         } catch (error) {
             console.error("Error deleting property:", error);
-            toast.error("부동산 삭제 중 오류가 발생했습니다.");
+            toast.error("부동산 삭제 중 오류가 발생했습니다.", { autoClose: 1500 });
         }
     };
 
@@ -171,14 +171,15 @@ const ManageProperty = () => {
             title: "제목",
             dataIndex: "title",
             key: "title",
-            width: "20%",
+            width: "18%",
             ...getColumnSearchProps("title"),
+            render: (text) => <strong>{text}</strong>,
         },
         {
             title: "가격",
             dataIndex: "price",
             key: "price",
-            width: "15%",
+            width: "12%",
             render: (text) => {
                 return new Intl.NumberFormat("ko-KR", {
                     style: "decimal",
@@ -189,44 +190,49 @@ const ManageProperty = () => {
             title: "위치",
             dataIndex: "address",
             key: "address",
-            width: "25%",
+            width: "22%",
         },
         {
             title: "부동산 유형",
             dataIndex: "propertyTypes",
             key: "propertyTypes",
-            width: "15%",
+            width: "12%",
             render: (propertyTypes) => (propertyTypes?.name ? propertyTypes.name : "N/A"),
         },
         {
             title: "면적 (㎡)",
             dataIndex: "area",
             key: "area",
-            width: "10%",
+            width: "8%",
         },
         {
-            title: "빌딩",
-            dataIndex: "building",
-            key: "building",
-            width: "10%",
+            title: "거래 유형",
+            dataIndex: "listingType",
+            key: "listingType",
+            width: "8%",
+            render: (value) => (value === "Sale" ? "판매" : "임대"),
         },
         {
-            title: "호수",
-            dataIndex: "numberUnits",
-            key: "numberUnits",
-            width: "10%",
+            title: "방 개수/층 수",
+            dataIndex: "numberRoom",
+            key: "numberRoom",
+            width: "12%",
         },
         {
             title: "상태",
             dataIndex: "status",
             key: "status",
             width: "10%",
-            filters: [
-                { text: "사용 가능", value: "Available" },
-                { text: "사용 불가", value: "Unavailable" },
-            ],
-            onFilter: (value, record) => record.status === value,
+            render: (value) => {
+                const statusMap = {
+                    Available: "사용 가능",
+                    Rented: "임대됨",
+                    Sold: "판매됨",
+                };
+                return statusMap[value] || "알 수 없음";
+            },
         },
+
         {
             title: "작업",
             key: "action",

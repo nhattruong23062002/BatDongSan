@@ -30,10 +30,10 @@ function LoginForm() {
                     navigate("/");
                 }
             } else {
-                toast.error("잘못된 이메일 또는 비밀번호");
+                toast.error("잘못된 이메일 또는 비밀번호", { autoClose: 1500 });
             }
         } catch (error) {
-            toast.error("잘못된 이메일 또는 비밀번호");
+            toast.error("잘못된 이메일 또는 비밀번호", { autoClose: 1500 });
         }
     };
 

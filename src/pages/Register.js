@@ -24,12 +24,12 @@ function RegisterForm() {
             const response = await addUser(userData);
 
             if (response.status === 201 || response.status === 200) {
-                toast.success("회원가입이 완료되었습니다!");
+                toast.success("회원가입이 완료되었습니다!", { autoClose: 1500 });
             } else {
-                toast.error("회원가입 중 오류가 발생했습니다.");
+                toast.error("회원가입 중 오류가 발생했습니다.", { autoClose: 1500 });
             }
         } catch (error) {
-            toast.error("서버에 문제가 있습니다. 다시 시도해주세요.");
+            toast.error("서버에 문제가 있습니다. 다시 시도해주세요.", { autoClose: 1500 });
         }
     };
 

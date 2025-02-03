@@ -12,7 +12,7 @@ function FavoriteProperty() {
         const fetchFavoriteProperty = async () => {
             try {
                 const allFavorite = await getAllFavoriteForUser(user._id);
-                const allProperty = allFavorite.map((a) => a.properties)
+                const allProperty = allFavorite.map((a) => a.properties).filter((property) => property !== null);
                 const propertiesWithImages = await Promise.all(
                     allProperty.map(async (property) => {
                         const imagesResponse = await getImagesByPropertyId(property._id);

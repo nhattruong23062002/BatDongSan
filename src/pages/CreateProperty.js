@@ -33,7 +33,7 @@ const CreateProperty = () => {
             });
         } catch (error) {
             console.error("Error submitting property:", error);
-            toast.error("부동산 생성 또는 이미지 업로드 중 오류가 발생했습니다.");
+            toast.error("부동산 생성 또는 이미지 업로드 중 오류가 발생했습니다.", { autoClose: 1500 });
         }
     };
 
