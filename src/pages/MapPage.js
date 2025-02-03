@@ -25,7 +25,11 @@ const MapPage = () => {
         setCurrentImageIndex(index); // Cập nhật index của ảnh
         setIsPopupOpen(true); // Mở popup
     };
-
+    const handleMarkerClick = (address) => {
+        const filtered = locations.filter((loc) => loc.address === address);
+        setFilteredLocationsByAddress(filtered);
+        setSelectedCategory(null); // Khi click vào icon thì reset danh mục
+    };
     const closePopup = () => {
         setIsPopupOpen(false); // Đóng popup
     };
@@ -82,7 +86,7 @@ const MapPage = () => {
                 {
                     params: {
                         q: address,
-                        apiKey: "me5jFFVdL-ZAP6K5qoVWN3TRwcnIQUVZhHdWYRsSx-4",
+                        apiKey: "qotlp9emXFMH_EPh-xVVtMyA4H_qYbYXu9IfIYj_9So",
                     },
                 }
             );
@@ -167,6 +171,7 @@ const MapPage = () => {
                                 numberUnits: item.numberUnits,
                                 unitcode: item.unitCode,
                                 status: item.status,
+                                des: item.description,
                                 lat: coordinates.lat || 16.054079, // Fallback nếu không có tọa độ
                                 lng: coordinates.lng || 108.20723,
                             };
@@ -177,9 +182,9 @@ const MapPage = () => {
                     const filteredLocations =
                         category && category !== "all"
                             ? locationsWithDetails.filter(
-                                  (location) =>
-                                      location.propertyTypeId === category
-                              )
+                                (location) =>
+                                    location.propertyTypeId === category
+                            )
                             : locationsWithDetails; // Nếu không có category, hiển thị tất cả
 
                     setLocations(filteredLocations);
@@ -205,6 +210,10 @@ const MapPage = () => {
                     .includes(searchTerm.toLowerCase()))
     );
     // Filter locations by search term
+    const displayedLocations =
+        filteredLocationsByAddress.length > 0
+            ? filteredLocationsByAddress
+            : locations;
 
     // Custom icon for markers
     const createCustomIcon = () => {
@@ -241,12 +250,15 @@ const MapPage = () => {
                 {categories.map((category) => (
                     <button
                         key={category.id}
-                        className={`flex flex-col items-center gap-2 p-2 rounded-lg transition-all ${
-                            category.id === selectedCategory // Kiểm tra nếu `category.id` khớp với `selectedCategory`
+                        className={`flex flex-col items-center gap-2 p-2 rounded-lg transition-all ${category.id === selectedCategory
                                 ? "bg-blue-100 text-blue-500 border border-blue-500"
                                 : "text-gray-700 hover:bg-gray-100"
-                        }`}
-                        onClick={() => navigate(`/map/${category.id}`)} // Chuyển hướng đến URL với ID danh mục
+                            }`}
+                        onClick={() => {
+                            setSelectedCategory(category.id); // Cập nhật danh mục được chọn
+                            setFilteredLocationsByAddress([]); // Reset danh sách lọc theo địa chỉ
+                            navigate(`/map/${category.id}`); // Điều hướng đến danh mục tương ứng
+                        }}
                     >
                         <span className="text-3xl">{category.icon}</span>
                         <span className="text-xs font-medium text-center">
@@ -346,9 +358,9 @@ const MapPage = () => {
                     </h3>
 
                     {/* Hình ảnh */}
-                    <div className="flex gap-2 overflow-x-auto mb-4">
+                    <div className="flex gap-2 overflow-x-auto mb-4 ">
                         {selectedLocation.images &&
-                        selectedLocation.images.length > 0 ? (
+                            selectedLocation.images.length > 0 ? (
                             selectedLocation.images.map((image, index) => (
                                 <img
                                     key={index}
@@ -382,11 +394,11 @@ const MapPage = () => {
                                     <img
                                         src={
                                             selectedLocation.images[
-                                                currentImageIndex
+                                            currentImageIndex
                                             ]
                                         }
                                         alt="Popup"
-                                        className="w-full h-auto rounded-lg"
+                                        className="w-full max-h-[600px] rounded-lg"
                                     />
                                     {/* Nút qua trái */}
                                     <button
@@ -509,6 +521,14 @@ const MapPage = () => {
                                         "Không xác định"}
                                 </span>
                             </p>
+                            <p>
+                                <strong className="font-bold text-gray-700">
+                                    자세한 설명:
+                                </strong>{" "}
+                                <span className="text-gray-900">
+                                    {selectedLocation.des || "Không xác định"}
+                                </span>
+                            </p>
                         </div>
                     </div>
                     <hr className="border-t-4 border-gray-200 my-6" />
@@ -541,7 +561,7 @@ const MapPage = () => {
                         <div className="space-y-4">
                             <div className="flex">
                                 <span className="w-1/3 text-gray-600 font-medium">
-                                    주소
+                                    주소:
                                 </span>
                                 <span className="text-gray-800 font-medium">
                                     170 Pham Van Dong, Da Nang
@@ -549,26 +569,42 @@ const MapPage = () => {
                             </div>
                             <div className="flex">
                                 <span className="w-1/3 text-gray-600 font-medium">
-                                    대표자명
+                                    대표자명:
                                 </span>
                                 <span className="text-gray-800 font-medium">
-                                    HWANG JEONG HO
+                                    HWANG SEONG GU
                                 </span>
                             </div>
                             <div className="flex">
                                 <span className="w-1/3 text-gray-600 font-medium">
-                                    사무실 전화번호
+                                    Number-phone(Kor):
                                 </span>
                                 <span className="text-gray-800 font-medium">
-                                    11260-2020-00036
+                                    010-5424-3939
                                 </span>
                             </div>
                             <div className="flex">
                                 <span className="w-1/3 text-gray-600 font-medium">
-                                    대표전화번호
+                                    Number-phone(VN):
                                 </span>
                                 <span className="text-gray-800 font-medium">
-                                    02-492-0505
+                                    070-599-3988
+                                </span>
+                            </div>
+                            <div className="flex">
+                                <span className="w-1/3 text-gray-600 font-medium">
+                                    kakao talk:
+                                </span>
+                                <span className="text-gray-800 font-medium">
+                                    Hsglove393988
+                                </span>
+                            </div>
+                            <div className="flex">
+                                <span className="w-1/3 text-gray-600 font-medium">
+                                    Email:
+                                </span>
+                                <span className="text-gray-800 font-medium">
+                                    Hsglove83@nate.com
                                 </span>
                             </div>
                         </div>
@@ -594,34 +630,17 @@ const MapPage = () => {
                     style={{ height: "100%", width: "100%" }}
                 >
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                    {filteredLocations
-                        .filter((location) => {
-                            if (!location.lat || !location.lng) {
-                                console.warn(
-                                    `Invalid LatLng for location: ${location.id}`,
-                                    location
-                                );
-                                return false; // Loại bỏ các địa điểm không có lat/lng hợp lệ
-                            }
-                            return true;
-                        })
+
+                    {displayedLocations
+                        .filter((location) => location.lat && location.lng) // Chỉ lấy các địa điểm có tọa độ hợp lệ
                         .map((location, index) => (
                             <Marker
                                 key={location.id}
                                 position={[location.lat, location.lng]}
                                 icon={createCustomIcon()}
                                 eventHandlers={{
-                                    click: () => {
-                                        const filteredLocations =
-                                            locations.filter(
-                                                (loc) =>
-                                                    loc.address ===
-                                                    location.address
-                                            );
-                                        setFilteredLocationsByAddress(
-                                            filteredLocations
-                                        );
-                                    },
+                                    click: () =>
+                                        handleMarkerClick(location.address), // Lọc địa điểm theo địa chỉ
                                 }}
                             >
                                 <Popup
@@ -635,9 +654,7 @@ const MapPage = () => {
                                     <div className="relative">
                                         <div
                                             className="text-white rounded-md shadow-lg w-28"
-                                            style={{
-                                                padding: "4px 5px 3px",
-                                            }}
+                                            style={{ padding: "4px 5px 3px" }}
                                         >
                                             {/* Title */}
                                             <div className="bg-blue-500 text-center text-sm font-bold border-b border-blue-700 pb-1">
