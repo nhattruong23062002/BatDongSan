@@ -23,7 +23,7 @@ const MapComponent = ({ address }) => {
         const response = await fetch(
           `https://geocode.search.hereapi.com/v1/geocode?q=${encodeURIComponent(
             address
-          )}&apiKey=qotlp9emXFMH_EPh-xVVtMyA4H_qYbYXu9IfIYj_9So`
+          )}&apiKey=3QvWyhzZkwT9FScwMtXJrmcrYnEjkTuWqV2EKlBeCSo`
         );
         const data = await response.json();
 

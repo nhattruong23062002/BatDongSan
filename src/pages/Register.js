@@ -23,7 +23,7 @@ function RegisterForm() {
         try {
             const response = await addUser(userData);
 
-            if (response.status === 201 || response.status === 200) {
+            if (response) {
                 toast.success("회원가입이 완료되었습니다!", { autoClose: 1500 });
             } else {
                 toast.error("회원가입 중 오류가 발생했습니다.", { autoClose: 1500 });

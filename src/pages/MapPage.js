@@ -7,6 +7,7 @@ import ReactDOMServer from "react-dom/server";
 import { FaHome } from "react-icons/fa";
 import { API_URL } from "../config/apiUrls";
 import { useParams, useNavigate } from "react-router-dom";
+import { getPropertiesByBedroomAndType } from "../services/propertyService";
 
 const MapPage = () => {
     const [categories, setCategories] = useState([]);
@@ -20,6 +21,8 @@ const MapPage = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const popupRefs = useRef([]);
+    const addressCache = new Map();
+    const navigate = useNavigate();
 
     const handleDoubleClick = (image, index) => {
         setCurrentImageIndex(index); // Cập nhật index của ảnh
@@ -74,8 +77,6 @@ const MapPage = () => {
         return { mainImageURL: "/placeholder-image.png", additionalImages: [] };
     };
 
-    const addressCache = new Map();
-
     const fetchCoordinates = async (address) => {
         if (addressCache.has(address)) {
             return addressCache.get(address);
@@ -86,7 +87,7 @@ const MapPage = () => {
                 {
                     params: {
                         q: address,
-                        apiKey: "qotlp9emXFMH_EPh-xVVtMyA4H_qYbYXu9IfIYj_9So",
+                        apiKey: "3QvWyhzZkwT9FScwMtXJrmcrYnEjkTuWqV2EKlBeCSo",
                     },
                 }
             );
@@ -109,6 +110,7 @@ const MapPage = () => {
     const { category } = useParams(); // Lấy category từ URL
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setSelectedCategory(category);
         const fetchData = async () => {
             setLoading(true); // Bắt đầu loading
@@ -161,33 +163,53 @@ const MapPage = () => {
                                 propertyTypeId: item.propertyTypeId,
                                 area: item.area,
                                 price: item.price,
-                                buildingId: item.building,
-                                floor: item.numberFloors,
+                                listingType: item.listingType,
                                 description: item.unitType,
                                 deposit: item.deposit,
                                 bedroom: item.bedrooms,
                                 bathroom: item.bathrooms,
-                                numberFloors: item.numberFloors,
+                                numberRoom: item.numberRoom,
                                 numberUnits: item.numberUnits,
-                                unitcode: item.unitCode,
+                                leaseTerm: item.leaseTerm,
+                                unitType: item.unitType,
                                 status: item.status,
                                 des: item.description,
-                                lat: coordinates.lat || 16.054079, // Fallback nếu không có tọa độ
-                                lng: coordinates.lng || 108.20723,
+                                lat: coordinates.lat || "", // Fallback nếu không có tọa độ
+                                lng: coordinates.lng || "",
                             };
                         })
                     );
 
-                    // Lọc locations dựa trên category từ URL
-                    const filteredLocations =
-                        category && category !== "all"
-                            ? locationsWithDetails.filter(
-                                (location) =>
-                                    location.propertyTypeId === category
-                            )
-                            : locationsWithDetails; // Nếu không có category, hiển thị tất cả
+                    if (category === "678287b058712ad353461cad") {
+                        try {
+                            const properties =
+                                await getPropertiesByBedroomAndType(category);
 
-                    setLocations(filteredLocations);
+                            const filteredLocations =
+                                locationsWithDetails.filter((location) =>
+                                    properties.some(
+                                        (property) =>
+                                            property.id === location.id
+                                    )
+                                );
+                            setLocations(filteredLocations);
+                        } catch (error) {
+                            console.error(
+                                "Lỗi khi lấy dữ liệu cho category '678287b058712ad353461cad':",
+                                error
+                            );
+                        }
+                    } else {
+                        const filteredLocations =
+                            category && category !== "all"
+                                ? locationsWithDetails.filter(
+                                    (location) =>
+                                        location.propertyTypeId === category
+                                )
+                                : locationsWithDetails; // Nếu không có category, hiển thị tất cả
+
+                        setLocations(filteredLocations); // Cập nhật state locations với dữ liệu đã lọc
+                    }
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -203,13 +225,14 @@ const MapPage = () => {
     const filteredLocations = locations.filter(
         (location) =>
             (!selectedCategory ||
-                location.propertyTypeId === selectedCategory) &&
+                location.propertyTypeId === selectedCategory ||
+                selectedCategory === "678287b058712ad353461cad") &&
             (location.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 location.address
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()))
     );
-    // Filter locations by search term
+
     const displayedLocations =
         filteredLocationsByAddress.length > 0
             ? filteredLocationsByAddress
@@ -242,7 +265,8 @@ const MapPage = () => {
             popupAnchor: [0, -40], // Điểm neo của popup
         });
     };
-    const navigate = useNavigate();
+
+    console.log("selectedLocation", selectedLocation);
     return (
         <div className="flex h-screen">
             {/* Sidebar for Categories */}
@@ -251,8 +275,8 @@ const MapPage = () => {
                     <button
                         key={category.id}
                         className={`flex flex-col items-center gap-2 p-2 rounded-lg transition-all ${category.id === selectedCategory
-                                ? "bg-blue-100 text-blue-500 border border-blue-500"
-                                : "text-gray-700 hover:bg-gray-100"
+                            ? "bg-blue-100 text-blue-500 border border-blue-500"
+                            : "text-gray-700 hover:bg-gray-100"
                             }`}
                         onClick={() => {
                             setSelectedCategory(category.id); // Cập nhật danh mục được chọn
@@ -271,7 +295,7 @@ const MapPage = () => {
             {/* List of Locations */}
             {loading ? (
                 <div className="flex justify-center items-center w-full h-screen">
-                    <div className="loader">Loading 15s...</div>
+                    <div className="loader">Loading...</div>
                 </div>
             ) : (
                 <>
@@ -328,8 +352,16 @@ const MapPage = () => {
                                             VND
                                         </p>
                                         <p>
-                                            <strong>건물:</strong>{" "}
-                                            {location.buildingId}
+                                            <strong>상태:</strong>{" "}
+                                            {
+                                                {
+                                                    "Available": "사용 가능",
+                                                    "Rented": "임대됨",
+                                                    "Sold": "판매됨",
+                                                }[location.status] || ""
+                                            }
+                                        </p>
+                                        <p>
                                         </p>
                                     </div>
                                 </div>
@@ -461,28 +493,22 @@ const MapPage = () => {
                             </p>
                             <p>
                                 <strong className="font-bold text-gray-700">
-                                    건물:
+                                    거래 유형:
                                 </strong>{" "}
                                 <span className="text-gray-900">
-                                    {selectedLocation.buildingId ||
-                                        "Không xác định"}
+                                    {selectedLocation.listingType === "Sell" ? "판매" : "임대"}
                                 </span>
                             </p>
                             <p>
-                                <strong className="font-bold text-gray-700">
-                                    바닥:
-                                </strong>{" "}
+                                <strong className="font-bold text-gray-700">상태:</strong>{" "}
                                 <span className="text-gray-900">
-                                    {selectedLocation.floor || "Không xác định"}
-                                </span>
-                            </p>
-                            <p>
-                                <strong className="font-bold text-gray-700">
-                                    상태:
-                                </strong>{" "}
-                                <span className="text-gray-900">
-                                    {selectedLocation.status ||
-                                        "Không xác định"}
+                                    {
+                                        {
+                                            "Available": "사용 가능",
+                                            "Rented": "임대됨",
+                                            "Sold": "판매됨",
+                                        }[selectedLocation.status] || "알 수 없음"
+                                    }
                                 </span>
                             </p>
                             <p>
@@ -491,7 +517,7 @@ const MapPage = () => {
                                 </strong>{" "}
                                 <span className="text-gray-900">
                                     {selectedLocation.bedroom ||
-                                        "Không xác định"}
+                                        "0"}
                                 </span>
                             </p>
                             <p>
@@ -505,22 +531,33 @@ const MapPage = () => {
                             </p>
                             <p>
                                 <strong className="font-bold text-gray-700">
-                                    층수:
+                                    방 개수/층 수:
                                 </strong>{" "}
                                 <span className="text-gray-900">
-                                    {selectedLocation.numberFloors ||
+                                    {selectedLocation.numberRoom ||
                                         "Không xác định"}
                                 </span>
                             </p>
                             <p>
                                 <strong className="font-bold text-gray-700">
-                                    객실 코드:
+                                    유닛 타입:
                                 </strong>{" "}
                                 <span className="text-gray-900">
-                                    {selectedLocation.unitcode ||
+                                    {selectedLocation.unitType ||
                                         "Không xác định"}
                                 </span>
                             </p>
+                            {selectedLocation.leaseTerm && (
+                                <p>
+                                    <strong className="font-bold text-gray-700">
+                                        임대 기간:
+                                    </strong>{" "}
+                                    <span className="text-gray-900">
+                                        {selectedLocation.leaseTerm ||
+                                            "Không xác định"}
+                                    </span>
+                                </p>
+                            )}
                             <p>
                                 <strong className="font-bold text-gray-700">
                                     자세한 설명:
@@ -609,16 +646,7 @@ const MapPage = () => {
                             </div>
                         </div>
                     </div>
-                    <hr className="border-t-4 border-gray-200 my-6" />
-                    {/* Action Buttons */}
-                    <div className="flex gap-2 mt-4">
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                            텍스트 쿼리
-                        </button>
-                        <button className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
-                            연락하다
-                        </button>
-                    </div>
+                    <hr className="border-t-4 border-gray-200 my-4" />
                 </div>
             )}
 

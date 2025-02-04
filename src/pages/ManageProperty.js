@@ -210,7 +210,7 @@ const ManageProperty = () => {
             dataIndex: "listingType",
             key: "listingType",
             width: "8%",
-            render: (value) => (value === "Sale" ? "판매" : "임대"),
+            render: (value) => (value === "Sell" ? "판매" : "임대"),
         },
         {
             title: "방 개수/층 수",

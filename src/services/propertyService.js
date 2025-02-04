@@ -41,4 +41,10 @@ const deleteProperty = async (propertyId) => {
     });
 };
 
-export { getProperties, addProperty, updateProperty, deleteProperty, getDetailProperty };
+const getPropertiesByBedroomAndType = async () => {
+    const response = await axios.get(`${API_URL}/properties/propertiesByBedroomAndType`);
+    return response.data.payload;
+};
+
+
+export { getProperties, addProperty, updateProperty, deleteProperty, getDetailProperty, getPropertiesByBedroomAndType };

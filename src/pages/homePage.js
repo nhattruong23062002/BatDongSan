@@ -4,7 +4,7 @@ import { API_URL } from "../config/apiUrls";
 import axios from "axios";
 import Card from "../components/CardComponent";
 import { useNavigate } from "react-router-dom";
-import { getProperties } from "../services/propertyService";
+import { getProperties, getPropertiesByBedroomAndType } from "../services/propertyService";
 import { getImagesByPropertyId } from "../services/imagesService";
 
 function HomePage() {
@@ -12,6 +12,7 @@ function HomePage() {
     const [propertyTypes, setPropertyTypes] = useState([]);
     const [properties, setProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [propertiesByBedroomAndType, setPropertiesByBedroomAndType] = useState("");
     const [filteredProperties, setFilteredProperties] = useState([]);
     const [listingType, setListingType] = useState("Rent");
 
@@ -25,12 +26,16 @@ function HomePage() {
         }
     };
 
+    console.log("propertyTypes", propertyTypes)
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const propertyTypesResponse = await axios.get(
                     `${API_URL}/propertyTypes`
                 );
+                const propertiesByBedroomAndType = await getPropertiesByBedroomAndType();
+                setPropertiesByBedroomAndType(propertiesByBedroomAndType);
                 setPropertyTypes(propertyTypesResponse.data.payload);
 
                 const propertiesResponse = await getProperties();
@@ -214,9 +219,15 @@ function HomePage() {
                                     <div className="text-3xl group-hover:-translate-y-2 transition-transform duration-300">
                                         {project.name}
                                     </div>
-                                    <div className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        {project.count}유닛
-                                    </div>
+                                    {project?.name === "원/투룸" ? (
+                                        <div className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            {propertiesByBedroomAndType.length}유닛
+                                        </div>
+                                    ) : (
+                                        <div className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            {project.count}유닛
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ))}
