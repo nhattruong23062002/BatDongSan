@@ -25,6 +25,14 @@ function RegisterForm() {
 
             if (response) {
                 toast.success("회원가입이 완료되었습니다!", { autoClose: 1500 });
+                setFullName("");
+                setEmail("");
+                setPhoneNumber("");
+                setPassword("");
+
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
             } else {
                 toast.error("회원가입 중 오류가 발생했습니다.", { autoClose: 1500 });
             }

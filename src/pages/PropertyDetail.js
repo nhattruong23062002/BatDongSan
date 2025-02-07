@@ -6,18 +6,17 @@ import { getDetailProperty } from "../services/propertyService";
 import { getImagesByPropertyId } from "../services/imagesService";
 import { toast, ToastContainer } from "react-toastify";
 import { addFavorite, deleteFavorite, getDetailFavorite } from "../services/favoriteService";
-import { decodeToken, getToken } from "../utils/authUtils";
+import { decodeToken } from "../utils/authUtils";
 import MapComponent from "../components/MapComponent";
 
 const PropertyDetail = () => {
   const { id } = useParams();
   const user = decodeToken();
-
-  const [mainImage, setMainImage] = useState();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupImage, setPopupImage] = useState("");
   const [property, setProperty] = useState();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [mainImage, setMainImage] = useState();
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ const PropertyDetail = () => {
         const dataProperty = {
           ...detalProperty,
           mainImage: imageProperty[0]?.mainImageURL || null,
-          additionalImages: imageProperty[0]?.additionalImages || null,
+          additionalImages: [imageProperty[0]?.mainImageURL, ...(imageProperty[0]?.additionalImages || [])],
         };
         setProperty(dataProperty);
       } catch (error) {
@@ -53,8 +52,8 @@ const PropertyDetail = () => {
   };
 
   useEffect(() => {
-    if (property?.additionalImages) {
-      setMainImage(property.additionalImages[0]);
+    if (property?.mainImage) {
+      setMainImage(property.mainImage);
     }
   }, [property]);
 
@@ -76,7 +75,7 @@ const PropertyDetail = () => {
 
   const toggleFavorite = async () => {
     if (!user) {
-      toast.error("로그인 해주세요!", { autoClose: 1500 });
+      toast.info("로그인 해주세요!", { autoClose: 1500 });
       return;
     }
     setIsFavorite((prev) => !prev);
@@ -98,6 +97,10 @@ const PropertyDetail = () => {
     }
   };
 
+  const handleImageClick = (image, index) => {
+    setCurrentImageIndex(index);
+    setMainImage(image);
+  };
 
 
   return (
@@ -107,13 +110,13 @@ const PropertyDetail = () => {
           <a href="/" className="hover:text-blue-800 transition-colors">
             홈 /{" "}
           </a>
-          <span> {property?.title} </span>
+          <span>{property?.title} </span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <div className="relative mb-4">
               <img
-                src={property?.mainImage}
+                src={mainImage}
                 alt="Main"
                 className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-lg border"
               />
@@ -135,7 +138,7 @@ const PropertyDetail = () => {
                       ? "border-blue-500 shadow-lg"
                       : "border-gray-300 hover:border-blue-500"
                       }`}
-                    onClick={() => setCurrentImageIndex(index)}
+                    onClick={() => handleImageClick(image, index)}
                     onDoubleClick={() => handleDoubleClick(image)}
                   >
                     <img

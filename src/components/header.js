@@ -34,7 +34,7 @@ function Header() {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white bg-opacity-90 shadow-md">
+        <div className="bg-white shadow-md sticky top-0 z-[10000]">
             <div className="container mx-auto max-w-[1280px] flex items-center justify-between h-16 px-6">
                 <div className="flex items-center space-x-2">
                     <img
@@ -68,9 +68,8 @@ function Header() {
 
                 <nav
                     style={{ zIndex: 1000 }}
-                    className={`text-center lg:flex flex-col lg:flex-row lg:space-x-6 text-sm font-medium text-gray-700 absolute lg:relative lg:top-0 top-16 left-0 w-full bg-white lg:bg-transparent lg:w-auto transform lg:transform-none transition-transform duration-300 ${
-                        isMenuOpen ? "translate-x-0" : "-translate-x-full"
-                    }`}
+                    className={`text-center lg:flex flex-col lg:flex-row lg:space-x-6 text-sm font-medium text-gray-700 absolute lg:relative lg:top-0 top-16 left-0 w-full bg-white lg:bg-transparent lg:w-auto transform lg:transform-none transition-transform duration-300 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
+                        }`}
                 >
                     <a
                         href="#"

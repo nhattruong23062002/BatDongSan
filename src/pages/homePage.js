@@ -122,12 +122,12 @@ function HomePage() {
                                     image: "./Bietthu.png",
                                 },
                                 {
-                                    id: "67828a8258712ad353461cc2",
+                                    id: "678289ef58712ad353461cc0",
                                     name: "가든 하우스",
                                     image: "./Nhavuon.png",
                                 },
                                 {
-                                    id: "678289ef58712ad353461cc0",
+                                    id: "67828a8258712ad353461cc2",
                                     name: "타운하우스",
                                     image: "./Nhapho.png",
                                 },
