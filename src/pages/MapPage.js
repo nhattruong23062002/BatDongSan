@@ -415,10 +415,10 @@ const MapPage = () => {
                     {/* Popup hình ảnh */}
                     {isPopupOpen && (
                         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-                            <div className="bg-white p-4 rounded-lg shadow-lg relative max-w-3xl">
+                            <div className="bg-black p-4 rounded-lg shadow-lg relative w-full max-w-3xl max-h-[90vh] overflow-y-auto">
                                 <button
                                     onClick={closePopup}
-                                    className="absolute top-0.5 right-1 text-red-500 hover:text-gray-700"
+                                    className="absolute top-0.5 right-1 text-red-500 hover:text-white"
                                 >
                                     ✖
                                 </button>
@@ -430,7 +430,7 @@ const MapPage = () => {
                                             ]
                                         }
                                         alt="Popup"
-                                        className="w-full max-h-[600px] rounded-lg"
+                                        className="w-full max-h-[600px] object-contain rounded-lg"
                                     />
                                     {/* Nút qua trái */}
                                     <button
@@ -596,51 +596,56 @@ const MapPage = () => {
                         <hr className="border-gray-200 my-4" />
 
                         <div className="space-y-4">
-                            <div className="flex">
-                                <span className="w-1/3 text-gray-600 font-medium">
+                            <div className="flex flex-wrap gap-2 sm:gap-4">
+                                <span className="w-full sm:w-1/3 text-gray-600 font-medium text-left">
                                     주소:
                                 </span>
-                                <span className="text-gray-800 font-medium">
+                                <span className="text-gray-800 font-medium text-left">
                                     170 Pham Van Dong, Da Nang
                                 </span>
                             </div>
-                            <div className="flex">
-                                <span className="w-1/3 text-gray-600 font-medium">
+
+                            <div className="flex flex-wrap gap-2 sm:gap-4">
+                                <span className="w-full sm:w-1/3 text-gray-600 font-medium text-left">
                                     대표자명:
                                 </span>
-                                <span className="text-gray-800 font-medium">
+                                <span className="text-gray-800 font-medium text-left">
                                     HWANG SEONG GU
                                 </span>
                             </div>
-                            <div className="flex">
-                                <span className="w-1/3 text-gray-600 font-medium">
+
+                            <div className="flex flex-wrap gap-2 sm:gap-4">
+                                <span className="w-full sm:w-1/3 text-gray-600 font-medium text-left">
                                     Number-phone(Kor):
                                 </span>
-                                <span className="text-gray-800 font-medium">
+                                <span className="text-gray-800 font-medium text-left">
                                     010-5424-3939
                                 </span>
                             </div>
-                            <div className="flex">
-                                <span className="w-1/3 text-gray-600 font-medium">
+
+                            <div className="flex flex-wrap gap-2 sm:gap-4">
+                                <span className="w-full sm:w-1/3 text-gray-600 font-medium text-left">
                                     Number-phone(VN):
                                 </span>
-                                <span className="text-gray-800 font-medium">
+                                <span className="text-gray-800 font-medium text-left">
                                     070-599-3988
                                 </span>
                             </div>
-                            <div className="flex">
-                                <span className="w-1/3 text-gray-600 font-medium">
+
+                            <div className="flex flex-wrap gap-2 sm:gap-4">
+                                <span className="w-full sm:w-1/3 text-gray-600 font-medium text-left">
                                     kakao talk:
                                 </span>
-                                <span className="text-gray-800 font-medium">
+                                <span className="text-gray-800 font-medium text-left">
                                     Hsglove393988
                                 </span>
                             </div>
-                            <div className="flex">
-                                <span className="w-1/3 text-gray-600 font-medium">
+
+                            <div className="flex flex-wrap gap-2 sm:gap-4">
+                                <span className="w-full sm:w-1/3 text-gray-600 font-medium text-left">
                                     Email:
                                 </span>
-                                <span className="text-gray-800 font-medium">
+                                <span className="text-gray-800 font-medium text-left">
                                     Hsglove83@nate.com
                                 </span>
                             </div>
@@ -658,7 +663,6 @@ const MapPage = () => {
                     style={{ height: "100%", width: "100%" }}
                 >
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
                     {displayedLocations
                         .filter((location) => location.lat && location.lng) // Chỉ lấy các địa điểm có tọa độ hợp lệ
                         .map((location, index) => (

@@ -34,7 +34,7 @@ function Header() {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white shadow-md sticky top-0 z-[10000]">
+        <div className="bg-white shadow-md sticky top-0 z-[1000]">
             <div className="container mx-auto max-w-[1280px] flex items-center justify-between h-16 px-6">
                 <div className="flex items-center space-x-2">
                     <img
