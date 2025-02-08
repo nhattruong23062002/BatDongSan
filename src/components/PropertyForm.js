@@ -152,7 +152,7 @@ const PropertyForm = ({ initialData = {}, onSubmit }) => {
                             >
                                 <Select placeholder="거래 유형을 선택하세요">
                                     <Option value="Rent">임대</Option>
-                                    <Option value="Sale">판매</Option>
+                                    <Option value="Sell">판매</Option>
                                 </Select>
                             </Form.Item>
                         </Col>
