@@ -154,7 +154,7 @@ function HomePage() {
                 </div>
             </section>
 
-            <section className="py-10 bg-gray-100">
+            {/* <section className="py-10 bg-gray-100">
                 <div className="container mx-auto max-w-[1280px] px-4">
                     <div className="flex justify-between items-center mb-4">
                         <div className="text-left">
@@ -188,7 +188,7 @@ function HomePage() {
                     </div>
                     <Card properties={filteredProperties} />
                 </div>
-            </section>
+            </section> */}
 
             <section className="py-10 bg-white">
                 <div className="container mx-auto max-w-[1280px] px-4">
